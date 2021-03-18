@@ -7,14 +7,20 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "clean": "watchman watch-del-all && cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.4",
     "@react-navigation/bottom-tabs": "5.2.5",
     "@react-navigation/native": "5.8.9",
-    "@react-navigation/stack": "~5.2.14"
+    "@react-navigation/stack": "~5.2.14",
+    "react": "16.13.1",
+    "react-native": "0.63.4",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.0.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^2.18.1",
+    "react-navigation": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

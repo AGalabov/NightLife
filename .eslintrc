@@ -59,6 +59,7 @@
         ]
       }
     ],
+    "space-in-brackets": ["error", "always"],
     "import/no-unresolved": 0,
     "import/prefer-default-export": "off",
     "max-classes-per-file": "error",
