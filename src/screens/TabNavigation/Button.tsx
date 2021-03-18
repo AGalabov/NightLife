@@ -1,11 +1,9 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
-interface Props {
+export interface TabNavigationButtonProps {
   active: boolean;
   label: string;
-  // ActiveIcon: SvgType;
-  // InactiveIcon: SvgType;
   ActiveIcon: React.ReactNode;
   InactiveIcon: React.ReactNode;
   onPress(): void;
@@ -17,7 +15,7 @@ export function TabNavigationButton({
   ActiveIcon,
   InactiveIcon,
   onPress,
-}: Props) {
+}: TabNavigationButtonProps) {
   return (
     <TouchableOpacity onPress={onPress}>
       {active ? ActiveIcon : InactiveIcon}
