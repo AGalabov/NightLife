@@ -10,7 +10,7 @@ export function SearchScreen() {
         alignItems: 'center',
         backgroundColor: 'blue',
       }}>
-      <Text>Home!</Text>
+      <Text>Search</Text>
     </View>
   );
 }

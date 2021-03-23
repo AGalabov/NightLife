@@ -13,7 +13,10 @@ export function ProfileScreen() {
         backgroundColor: 'green',
       }}>
       <Text>Profile!</Text>
-      <Button title="Go to Home" onPress={() => navigate('Home')} />
+      <Button
+        title="Go to Event Details"
+        onPress={() => navigate('EventDetails')}
+      />
     </View>
   );
 }

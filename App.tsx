@@ -1,16 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { TabNavigation } from './src/screens/TabNavigation';
-
-declare const global: { HermesInternal: null | {} };
+import { RootNavigation } from './src/screens/Navigation';
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <TabNavigation />
+        <RootNavigation />
       </NavigationContainer>
     </>
   );

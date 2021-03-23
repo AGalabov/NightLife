@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export function AddEventScreen() {
+export function EventDetailsScreen() {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ export function AddEventScreen() {
         alignItems: 'center',
         backgroundColor: 'red',
       }}>
-      <Text>Add Event Screen!</Text>
+      <Text>EventDetails</Text>
     </View>
   );
 }

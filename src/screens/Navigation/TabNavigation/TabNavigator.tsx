@@ -2,14 +2,13 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TabNavigationButton } from './Button';
-import { Routes } from '../../hooks/use-custom-navigation';
+import { TabRoutes } from '../../../hooks/use-custom-navigation';
 
 interface VisualTabOptions {
   render: (key: string, active: boolean, onPress: () => void) => void;
 }
 
-// This is the visual part of the tab navigator options.
-const tabOptions: Record<Routes, VisualTabOptions> = {
+const tabOptions: Record<TabRoutes, VisualTabOptions> = {
   Search: {
     render: (key, active, onPress) => (
       <TabNavigationButton
@@ -60,27 +59,50 @@ const tabOptions: Record<Routes, VisualTabOptions> = {
       />
     ),
   },
+
+  AddEvent: {
+    render: (key, active, onPress) => (
+      <TabNavigationButton
+        key={key}
+        label="AddEvent"
+        active={active}
+        ActiveIcon={
+          <View style={{ backgroundColor: 'green', width: 20, height: 20 }} />
+        }
+        InactiveIcon={
+          <View style={{ backgroundColor: 'green', width: 20, height: 20 }} />
+        }
+        onPress={onPress}
+      />
+    ),
+  },
 };
 
+const styles = StyleSheet.create({
+  linksContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    paddingBottom: 6,
+    paddingHorizontal: 20,
+    height: 50,
+  },
+});
+
 export function TabNavigator({ state, navigation }: BottomTabBarProps) {
-  // This is the current route at this navigation level.
   const currentRouteName = state.routes[state.index].name;
 
   console.log({ currentRouteName });
-
-  // const isKeyboardShown = useKeyboardShown();
-
-  // if (isKeyboardShown) {
-  //   return null;
-  // }
-
   return (
     <View style={styles.linksContainer}>
       {state.routes.map((route: any, index: number) => {
         console.log({ state: state.index, index, route: route.name });
         const isActive = state.index === index;
 
-        const { render } = tabOptions[route.name as Routes];
+        console.log({ tabOptions, routeName: route.name });
+
+        const { render } = tabOptions[route.name as TabRoutes];
 
         const onPress = () => {
           const event = navigation.emit({
@@ -99,15 +121,3 @@ export function TabNavigator({ state, navigation }: BottomTabBarProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  linksContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    paddingBottom: 6,
-    paddingHorizontal: 20,
-    height: 50,
-  },
-});
