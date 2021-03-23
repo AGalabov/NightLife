@@ -3,7 +3,7 @@ import { View, Text, Button } from 'react-native';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 
 export function HomeScreen() {
-  const { goBack } = useCustomNavigation();
+  const { goBack, navigate } = useCustomNavigation();
   return (
     <View
       style={{
@@ -13,6 +13,11 @@ export function HomeScreen() {
         backgroundColor: 'red',
       }}>
       <Text>Home!</Text>
+
+      <Button
+        title="Go to Event Details"
+        onPress={() => navigate('EventDetails')}
+      />
       <Button title="Go back" onPress={() => goBack()} />
     </View>
   );

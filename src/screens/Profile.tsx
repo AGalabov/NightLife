@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
-import { useCustomNavigation } from '../hooks/use-custom-navigation';
+import { useUser } from '../hooks/use-user';
 
 export function ProfileScreen() {
-  const { navigate } = useCustomNavigation();
+  const { login, logout, user, isGuest } = useUser();
+
   return (
     <View
       style={{
@@ -12,11 +13,26 @@ export function ProfileScreen() {
         alignItems: 'center',
         backgroundColor: 'green',
       }}>
-      <Text>Profile!</Text>
-      <Button
-        title="Go to Event Details"
-        onPress={() => navigate('EventDetails')}
-      />
+      <Text>Profile! - {user?.type}</Text>
+      {isGuest ? (
+        <>
+          <Button
+            title="Log as Admin"
+            onPress={() =>
+              login({ email: '', firstName: '', lastName: '', type: 'admin' })
+            }
+          />
+
+          <Button
+            title="Log as Regular"
+            onPress={() =>
+              login({ email: '', firstName: '', lastName: '', type: 'regular' })
+            }
+          />
+        </>
+      ) : (
+        <Button title="Logout" onPress={logout} />
+      )}
     </View>
   );
 }
