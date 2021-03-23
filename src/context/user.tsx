@@ -1,3 +1,4 @@
+import { noop } from 'lodash';
 import React, { createContext, ReactNode, useState } from 'react';
 
 interface Props {
@@ -19,8 +20,8 @@ interface UserState {
 
 const initialState: UserState = {
   user: undefined,
-  login: () => {},
-  logout: () => {},
+  login: noop,
+  logout: noop,
 };
 
 export const UserContext = createContext(initialState);
