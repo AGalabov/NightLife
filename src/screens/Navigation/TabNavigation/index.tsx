@@ -3,12 +3,11 @@ import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { TabNavigator } from './TabNavigator';
-import { HomeScreen } from '../../Home';
 import { SearchScreen } from '../../Search';
 import { ProfileScreen } from '../../Profile';
 import { AddEventScreen } from '../../AddEvent';
-import { EventDetailsScreen } from '../../EventDetails';
+import { TabNavigator } from './TabNavigator';
+import { HomeScreen } from '../../Home';
 
 const User = createBottomTabNavigator();
 

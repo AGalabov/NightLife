@@ -1,7 +1,7 @@
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { AdminTabNavigation, TabNavigation } from './TabNavigation';
 import { EventDetailsScreen } from '../EventDetails';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useUser } from '../../hooks/use-user';
 
 const { Navigator, Screen } = createStackNavigator();

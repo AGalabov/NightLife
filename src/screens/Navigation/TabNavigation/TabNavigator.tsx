@@ -1,8 +1,8 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { TabNavigationButton } from './Button';
 import { TabRoutes } from '../../../hooks/use-custom-navigation';
+import { TabNavigationButton } from './Button';
 
 interface VisualTabOptions {
   render: (key: string, active: boolean, onPress: () => void) => void;
@@ -91,18 +91,13 @@ const styles = StyleSheet.create({
 });
 
 export function TabNavigator({ state, navigation }: BottomTabBarProps) {
-  const currentRouteName = state.routes[state.index].name;
-
-  console.log({ currentRouteName });
   return (
     <View style={styles.linksContainer}>
       {state.routes.map((route: any, index: number) => {
-        console.log({ state: state.index, index, route: route.name });
         const isActive = state.index === index;
 
-        console.log({ tabOptions, routeName: route.name });
-
-        const { render } = tabOptions[route.name as TabRoutes];
+        const routeName: TabRoutes = route.name;
+        const { render } = tabOptions[routeName];
 
         const onPress = () => {
           const event = navigation.emit({
