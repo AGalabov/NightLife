@@ -10,7 +10,7 @@ export function SearchScreen() {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        // backgroundColor: 'blue',
       }}>
       <Text>Search</Text>
 

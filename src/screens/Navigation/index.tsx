@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AdminTabNavigation, TabNavigation } from './TabNavigation';
+import { AdminTabNavigation, UserTabNavigation } from './TabNavigation';
 import { EventDetailsScreen } from '../EventDetails';
 import { useUser } from '../../hooks/use-user';
 
@@ -14,7 +14,7 @@ export function RootNavigation() {
     <Navigator headerMode="none">
       <Screen
         name="TabNavigator"
-        component={isAdmin ? AdminTabNavigation : TabNavigation}
+        component={isAdmin ? AdminTabNavigation : UserTabNavigation}
       />
       <Screen name="EventDetails" component={EventDetailsScreen} />
     </Navigator>

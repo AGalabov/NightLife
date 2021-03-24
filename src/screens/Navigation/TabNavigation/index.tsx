@@ -1,38 +1,72 @@
 import React from 'react';
-import {
-  BottomTabBarProps,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { SearchScreen } from '../../Search';
 import { ProfileScreen } from '../../Profile';
 import { AddEventScreen } from '../../AddEvent';
-import { TabNavigator } from './TabNavigator';
 import { HomeScreen } from '../../Home';
 
-const User = createBottomTabNavigator();
+const User = createMaterialBottomTabNavigator();
 
-export function TabNavigation() {
+export function UserTabNavigation() {
   return (
     <User.Navigator
-      backBehavior="history"
-      tabBar={(props: BottomTabBarProps) => <TabNavigator {...props} />}>
-      <User.Screen name="Search" component={SearchScreen} />
-      <User.Screen name="Home" component={HomeScreen} />
-      <User.Screen name="Profile" component={ProfileScreen} />
+      initialRouteName="Home"
+      shifting
+      sceneAnimationEnabled={false}>
+      <User.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: 'magnify',
+        }}
+      />
+      <User.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: 'home',
+        }}
+      />
+      <User.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: 'account',
+        }}
+      />
     </User.Navigator>
   );
 }
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const Admin = createMaterialBottomTabNavigator();
 
-export function AdminTabNavigation() {
+export const AdminTabNavigation = () => {
   return (
-    <Navigator
-      backBehavior="history"
-      tabBar={(props: BottomTabBarProps) => <TabNavigator {...props} />}>
-      <Screen name="Search" component={SearchScreen} />
-      <Screen name="AddEvent" component={AddEventScreen} />
-      <Screen name="Profile" component={ProfileScreen} />
-    </Navigator>
+    <Admin.Navigator
+      initialRouteName="Profile"
+      shifting
+      sceneAnimationEnabled={false}>
+      <Admin.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: 'magnify',
+        }}
+      />
+      <Admin.Screen
+        name="AddEvent"
+        component={AddEventScreen}
+        options={{
+          tabBarIcon: 'plus-box',
+        }}
+      />
+      <Admin.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: 'account',
+        }}
+      />
+    </Admin.Navigator>
   );
-}
+};
