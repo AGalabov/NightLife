@@ -1,24 +1,37 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useCustomNavigation } from '../hooks/use-custom-navigation';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
+import { client } from '../client';
+import { EventList } from '../components/Event/List';
+import { Event } from '../models';
+
+const styles = StyleSheet.create({
+  wrapper: {
+    padding: 16,
+  },
+});
+
+function PageWrapper({ children }: { children: ReactNode }) {
+  return <ScrollView style={styles.wrapper}>{children}</ScrollView>;
+}
 
 export function HomeScreen() {
-  const { goBack, navigate } = useCustomNavigation();
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'red',
-      }}>
-      <Text>Home!</Text>
+  const [events, setEvents] = useState<Event[]>();
 
-      <Button
-        title="Go to Event Details"
-        onPress={() => navigate('EventDetails')}
-      />
-      <Button title="Go back" onPress={() => goBack()} />
-    </View>
+  useEffect(() => {
+    const asyncAction = async () => {
+      const fetchedEvents = await client.getEvents();
+
+      const replicated = Array(5).fill(fetchedEvents[0]);
+      setEvents(replicated);
+    };
+    asyncAction();
+  }, []);
+
+  return (
+    <PageWrapper>
+      <Text>EventDetails</Text>
+      {events && <EventList events={events} />}
+    </PageWrapper>
   );
 }
