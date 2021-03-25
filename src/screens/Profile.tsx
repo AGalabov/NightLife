@@ -1,46 +1,47 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, Paragraph } from 'react-native-paper';
+import { ProfileContent } from '../components/Profile';
 import { useUser } from '../hooks/use-user';
 import { PageWrapper } from './PageWrapper';
+
+const testAdmin = {
+  email: '',
+  firstName: '',
+  lastName: '',
+  type: 'admin',
+} as const;
+const testUser = {
+  email: '',
+  firstName: '',
+  lastName: '',
+  type: 'regular',
+} as const;
 
 export function ProfileScreen() {
   const { login, logout, user, isGuest } = useUser();
 
   return (
     <PageWrapper>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'green',
-        }}>
-        <Text>Profile! - {user?.type}</Text>
-        {isGuest ? (
-          <>
-            <Button
-              title="Log as Admin"
-              onPress={() =>
-                login({ email: '', firstName: '', lastName: '', type: 'admin' })
-              }
-            />
+      <ProfileContent />
+      <Paragraph>Profile! - {user?.type}</Paragraph>
+      {isGuest ? (
+        <>
+          <Button mode="contained" onPress={() => login(testAdmin)}>
+            <Paragraph>Log as Admin</Paragraph>
+          </Button>
 
-            <Button
-              title="Log as Regular"
-              onPress={() =>
-                login({
-                  email: '',
-                  firstName: '',
-                  lastName: '',
-                  type: 'regular',
-                })
-              }
-            />
-          </>
-        ) : (
-          <Button title="Logout" onPress={logout} />
-        )}
-      </View>
+          <Button
+            mode="contained"
+            style={{ marginTop: 8 }}
+            onPress={() => login(testUser)}>
+            <Paragraph>Log as Regular</Paragraph>
+          </Button>
+        </>
+      ) : (
+        <Button mode="contained" onPress={logout}>
+          <Paragraph>Logout</Paragraph>
+        </Button>
+      )}
     </PageWrapper>
   );
 }

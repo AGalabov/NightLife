@@ -34,7 +34,12 @@ module.exports = {
     'react-native/split-platform-components': 2,
     'react-native/no-inline-styles': 2,
     'react-native/no-color-literals': 2,
-    'react-native/no-raw-text': 2,
+    'react-native/no-raw-text': [
+        2,
+        {
+          skip: ['Paragraph', 'Caption', 'Title', 'Button'],
+        },
+      ],
     'react-native/no-single-element-style-arrays': 2,
     'object-curly-newline': 'off',
     'react/jsx-curly-newline': 'off',
