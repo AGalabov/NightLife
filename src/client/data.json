@@ -2,7 +2,23 @@
   "users": [
     {
       "email": "test@example.com",
-      "password": "parola1234"
+      "password": "parola1234",
+      "userId": 1
+    }
+  ],
+  "profiles": [
+    {
+      "email": "test@example.com",
+      "userId": 1,
+      "firstName": "Alexandar",
+      "lastName": "Galabov",
+      "favoriteVenues": [
+        1
+      ],
+      "favoriteArtists": [],
+      "visitedEvents": [
+        1
+      ]
     }
   ],
   "events": [

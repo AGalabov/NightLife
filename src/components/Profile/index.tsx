@@ -11,6 +11,7 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import { Profile } from '../../models';
 
 const styles = StyleSheet.create({
   drawerContent: {
@@ -52,7 +53,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ProfileContent() {
+interface ProfileContentProps {
+  profile: Profile;
+}
+
+export function ProfileContent({ profile }: ProfileContentProps) {
   return (
     <View style={styles.drawerContent}>
       <View style={styles.userInfoSection}>
@@ -63,7 +68,9 @@ export function ProfileContent() {
           }}
           size={50}
         />
-        <Title style={styles.title}>Dawid Urbaniak</Title>
+        <Title style={styles.title}>
+          {profile.firstName} {profile.lastName}
+        </Title>
         <Caption style={styles.caption}>@trensik</Caption>
         <View style={styles.row}>
           <View style={styles.section}>

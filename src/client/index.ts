@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { Venue, Event } from '../models';
+import { Venue, Event, Profile } from '../models';
 import data from './data.json';
 
 class Client {
@@ -9,6 +9,12 @@ class Client {
 
   getEvents(): Promise<Event[]> {
     return Promise.resolve(data.events);
+  }
+
+  getProfile(id: number): Promise<Profile> {
+    return Promise.resolve(
+      data.profiles.find((profile) => profile.userId === id)!,
+    );
   }
 }
 
