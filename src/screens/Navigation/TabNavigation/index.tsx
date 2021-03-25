@@ -4,6 +4,7 @@ import { SearchScreen } from '../../Search';
 import { ProfileScreen } from '../../Profile';
 import { AddEventScreen } from '../../AddEvent';
 import { HomeScreen } from '../../Home';
+import { activeBlue, dark } from '../../../assets/colors';
 
 const User = createMaterialBottomTabNavigator();
 
@@ -11,6 +12,9 @@ export function UserTabNavigation() {
   return (
     <User.Navigator
       initialRouteName="Home"
+      inactiveColor="white"
+      activeColor={activeBlue}
+      barStyle={{ backgroundColor: dark }}
       shifting
       sceneAnimationEnabled={false}>
       <User.Screen

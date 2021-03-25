@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Button, Paragraph } from 'react-native-paper';
 import { ProfileContent } from '../components/Profile';
 import { useUser } from '../hooks/use-user';
@@ -17,6 +18,12 @@ const testUser = {
   type: 'regular',
 } as const;
 
+const styles = StyleSheet.create({
+  bottomButton: {
+    marginTop: 8,
+  },
+});
+
 export function ProfileScreen() {
   const { login, logout, user, isGuest } = useUser();
 
@@ -32,7 +39,7 @@ export function ProfileScreen() {
 
           <Button
             mode="contained"
-            style={{ marginTop: 8 }}
+            style={styles.bottomButton}
             onPress={() => login(testUser)}>
             <Paragraph>Log as Regular</Paragraph>
           </Button>

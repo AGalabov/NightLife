@@ -52,7 +52,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "error",
 
     "react-native/no-color-literals": "off", // consider
-    "react-native/no-inline-styles": "off" // enable later
   },
   globals: {
     fetch: false
