@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native-paper';
 import { client } from '../client';
 import { EventList } from '../components/Event/List';
 import { Event } from '../models';
@@ -18,10 +17,5 @@ export function HomeScreen() {
     asyncAction();
   }, []);
 
-  return (
-    <PageWrapper>
-      <Text>EventDetails</Text>
-      {events && <EventList events={events} />}
-    </PageWrapper>
-  );
+  return <PageWrapper>{events && <EventList events={events} />}</PageWrapper>;
 }

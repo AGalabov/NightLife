@@ -28,8 +28,42 @@ module.exports = {
     'comma-dangle': 'off',
     'padded-blocks': 'off',
     'arrow-body-style': 'off',
+    'object-curly-newline': 'off',
+    "import/extensions": "off",
+    "no-restricted-imports": [
+      2,
+      {
+        "paths": [
+          {
+            "name": "react-native",
+            "importNames": ["Text"],
+            "message": "Please import one of 'Title', 'Paragraph', 'Caption', 'Heading' or 'Text' from 'react-native-paper' instead."
+          },
+          {
+            "name": "react-native",
+            "importNames": ["TextInput"],
+            "message": "Please import 'TextInput' from 'react-native-paper' instead."
+          },
+          {
+            "name": "react-native",
+            "importNames": ["Button"],
+            "message": "Please import 'Button' from 'react-native-paper' instead."
+          },
+        ]
+      }
+    ],
+
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+
+    'react/jsx-curly-newline': 'off',
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": 0,
+    'react/require-default-props': 0,
+
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/exhaustive-deps': 'warn',
+
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
     'react-native/no-inline-styles': 2,
@@ -41,16 +75,6 @@ module.exports = {
         },
       ],
     'react-native/no-single-element-style-arrays': 2,
-    'object-curly-newline': 'off',
-    'react/jsx-curly-newline': 'off',
-    "import/extensions": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "react/jsx-props-no-spreading": 0,
-
-
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
-
     "react-native/no-color-literals": "off", // consider
   },
   globals: {

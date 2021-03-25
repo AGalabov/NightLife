@@ -36,3 +36,13 @@ export interface Venue {
   address: string;
   city: string;
 }
+
+export interface Profile {
+  email: string;
+  userId: number;
+  firstName: string;
+  lastName: string;
+  favoriteVenues: number[];
+  favoriteArtists: number[];
+  visitedEvents: number[];
+}
