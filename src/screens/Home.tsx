@@ -1,19 +1,9 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native-paper';
 import { client } from '../client';
 import { EventList } from '../components/Event/List';
 import { Event } from '../models';
-
-const styles = StyleSheet.create({
-  wrapper: {
-    padding: 16,
-  },
-});
-
-function PageWrapper({ children }: { children: ReactNode }) {
-  return <ScrollView style={styles.wrapper}>{children}</ScrollView>;
-}
+import { PageWrapper } from './PageWrapper';
 
 export function HomeScreen() {
   const [events, setEvents] = useState<Event[]>();
