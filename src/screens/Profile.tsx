@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Paragraph, Text } from 'react-native-paper';
+import { Button, Paragraph } from 'react-native-paper';
 
 import { client } from '../client';
 import { ProfileContent } from '../components/Profile';
@@ -48,8 +48,6 @@ export function ProfileScreen() {
           <Button mode="contained" onPress={() => login(testAdmin)}>
             <Paragraph>Log as Admin</Paragraph>
           </Button>
-
-          <Text />
 
           <Button
             mode="contained"

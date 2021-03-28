@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleProp,
   StyleSheet,
-  Text,
   View,
   ViewStyle,
 } from 'react-native';
@@ -42,7 +41,6 @@ export function PageWrapper({ style, children }: PageWrapperProps) {
         source={{
           uri: imageUri,
         }}>
-        <Text />
         <ScrollView style={[styles.content, style]}>{children}</ScrollView>
       </ImageBackground>
     </View>

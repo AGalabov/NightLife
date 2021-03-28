@@ -31,23 +31,13 @@ module.exports = {
     'object-curly-newline': 'off',
     "import/extensions": "off",
     "no-restricted-imports": [
-      2,
+      'error',
       {
         "paths": [
           {
             "name": "react-native",
-            "importNames": ["Text"],
-            "message": "Please import one of 'Title', 'Paragraph', 'Caption', 'Heading' or 'Text' from 'react-native-paper' instead."
-          },
-          {
-            "name": "react-native",
-            "importNames": ["TextInput"],
-            "message": "Please import 'TextInput' from 'react-native-paper' instead."
-          },
-          {
-            "name": "react-native",
-            "importNames": ["Button"],
-            "message": "Please import 'Button' from 'react-native-paper' instead."
+            "importNames": ["Button", "Text", "TextInput"],
+            "message": "Please import the appropriate component from 'react-native-paper' instead."
           },
         ]
       }
