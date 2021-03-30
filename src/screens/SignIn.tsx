@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
@@ -8,7 +8,7 @@ import { SignInForm } from '../components/SignIn/Form';
 import { client } from '../client';
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: { marginTop: 60 },
   title: {
     color: 'white',
     lineHeight: 40,
@@ -36,14 +36,16 @@ export function SignInScreen() {
   };
 
   return (
-    <PageWrapper style={styles.wrapper} scrollable={false}>
-      <Title style={styles.title}>Sign In</Title>
+    <PageWrapper scrollable={false} withBackButton>
+      <View style={styles.wrapper}>
+        <Title style={styles.title}>Sign In</Title>
 
-      {error && <Paragraph style={styles.error}>{error}</Paragraph>}
-      <SignInForm
-        style={styles.form}
-        onSubmit={(data) => onLogin(data.email, data.password)}
-      />
+        {error && <Paragraph style={styles.error}>{error}</Paragraph>}
+        <SignInForm
+          style={styles.form}
+          onSubmit={(data) => onLogin(data.email, data.password)}
+        />
+      </View>
     </PageWrapper>
   );
 }

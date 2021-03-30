@@ -7,6 +7,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { useCustomNavigation } from '../../hooks/use-custom-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +24,9 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
+  backButton: {
+    backgroundColor: 'transparent',
+  },
 });
 
 const imageUri =
@@ -31,11 +36,18 @@ const imageUri =
 
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
+  withBackButton: boolean;
   scrollable: boolean;
   children: ReactNode;
 }
 
-export function PageWrapper({ style, scrollable, children }: PageWrapperProps) {
+export function PageWrapper({
+  style,
+  withBackButton,
+  scrollable,
+  children,
+}: PageWrapperProps) {
+  const { goBack } = useCustomNavigation();
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -43,6 +55,15 @@ export function PageWrapper({ style, scrollable, children }: PageWrapperProps) {
         source={{
           uri: imageUri,
         }}>
+        {withBackButton && (
+          <IconButton
+            style={styles.backButton}
+            color="white"
+            size={30}
+            icon="chevron-left"
+            onPress={goBack}
+          />
+        )}
         {scrollable ? (
           <ScrollView style={[styles.content, style]}>{children}</ScrollView>
         ) : (
