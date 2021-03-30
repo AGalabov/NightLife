@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   content: {
+    flex: 1,
     margin: 16,
   },
   image: {

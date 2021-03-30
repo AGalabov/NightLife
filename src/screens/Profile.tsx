@@ -19,14 +19,10 @@ export function ProfileScreen() {
   const { navigate } = useCustomNavigation();
 
   return (
-    <PageWrapper style={styles.wrapper} scrollable>
+    <PageWrapper style={styles.wrapper} scrollable={false}>
       {profile && <ProfileContent profile={profile} />}
       {isGuest ? (
         <>
-          <Button mode="contained" onPress={() => {}}>
-            <Paragraph>Log as Admin</Paragraph>
-          </Button>
-
           <Button
             mode="contained"
             style={styles.bottomButton}
