@@ -41,7 +41,7 @@ export function ProfileScreen() {
   }, []);
 
   return (
-    <PageWrapper style={styles.wrapper}>
+    <PageWrapper style={styles.wrapper} scrollable={false}>
       {profile && <ProfileContent profile={profile} />}
       {isGuest ? (
         <>

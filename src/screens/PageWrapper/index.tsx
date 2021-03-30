@@ -30,10 +30,11 @@ const imageUri =
 
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
+  scrollable: boolean;
   children: ReactNode;
 }
 
-export function PageWrapper({ style, children }: PageWrapperProps) {
+export function PageWrapper({ style, scrollable, children }: PageWrapperProps) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -41,7 +42,11 @@ export function PageWrapper({ style, children }: PageWrapperProps) {
         source={{
           uri: imageUri,
         }}>
-        <ScrollView style={[styles.content, style]}>{children}</ScrollView>
+        {scrollable ? (
+          <ScrollView style={[styles.content, style]}>{children}</ScrollView>
+        ) : (
+          <View style={[styles.content, style]}>{children}</View>
+        )}
       </ImageBackground>
     </View>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Paragraph, Button } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { PageWrapper } from './PageWrapper';
 
@@ -15,15 +16,16 @@ const styles = StyleSheet.create({
 export function SearchScreen() {
   const { navigate, goBack } = useCustomNavigation();
   return (
-    <PageWrapper>
+    <PageWrapper scrollable>
       <View style={styles.root}>
-        <Text>Search</Text>
+        <Paragraph>Search</Paragraph>
 
-        <Button
-          title="Go to Event Details"
-          onPress={() => navigate('EventDetails')}
-        />
-        <Button title="Go back" onPress={() => goBack()} />
+        <Button onPress={() => navigate('EventDetails')}>
+          <Paragraph>Go to Event Details</Paragraph>
+        </Button>
+        <Button onPress={() => goBack()}>
+          <Paragraph>Go back</Paragraph>
+        </Button>
       </View>
     </PageWrapper>
   );
