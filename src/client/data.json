@@ -10,6 +10,7 @@
     {
       "email": "test@example.com",
       "userId": 1,
+      "type": "regular",
       "firstName": "Alexandar",
       "lastName": "Galabov",
       "favoriteVenues": [

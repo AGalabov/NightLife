@@ -1,20 +1,13 @@
 import { noop } from 'lodash';
 import React, { createContext, ReactNode, useState } from 'react';
+import { Profile } from '../models';
 
 interface Props {
   children: ReactNode;
 }
-
-interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  type: 'admin' | 'regular';
-}
-
 interface UserState {
-  user?: User;
-  login: (data: User) => void;
+  user?: Profile;
+  login: (data: Profile) => void;
   logout: () => void;
 }
 
@@ -27,14 +20,14 @@ const initialState: UserState = {
 export const UserContext = createContext(initialState);
 
 export function UserContextProvider({ children }: Props) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<Profile>();
 
   return (
     <UserContext.Provider
       value={{
         user,
         logout: () => setUser(undefined),
-        login: (data: User) => setUser(data),
+        login: (data: Profile) => setUser(data),
       }}>
       {children}
     </UserContext.Provider>

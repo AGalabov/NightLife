@@ -39,6 +39,7 @@ export interface Venue {
 
 export interface Profile {
   email: string;
+  type: 'regular' | 'admin';
   userId: number;
   firstName: string;
   lastName: string;
