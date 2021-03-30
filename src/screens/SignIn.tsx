@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
-import { useAuthentication } from '../hooks/use-user';
+import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 import { SignInForm } from '../components/SignIn/Form';
 import { client } from '../client';

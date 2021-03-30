@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AdminTabNavigation, UserTabNavigation } from './TabNavigation';
 import { EventDetailsScreen } from '../EventDetails';
-import { useAuthentication } from '../../hooks/use-user';
+import { useAuthentication } from '../../hooks/use-authentication';
 import { SignInScreen } from '../SignIn';
 
 const { Navigator, Screen } = createStackNavigator();

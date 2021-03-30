@@ -4,7 +4,7 @@ import { Button, Paragraph } from 'react-native-paper';
 
 import { ProfileContent } from '../components/Profile';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
-import { useAuthentication } from '../hooks/use-user';
+import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 
 const styles = StyleSheet.create({
