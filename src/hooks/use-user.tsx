@@ -5,7 +5,7 @@ export function useAuthentication() {
   const { user, ...rest } = useContext(UserContext);
 
   return {
-    user,
+    profile: user,
     isGuest: !user,
     isRegistered: user?.type === 'regular',
     isAdmin: user?.type === 'admin',

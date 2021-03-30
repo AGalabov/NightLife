@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Paragraph } from 'react-native-paper';
 
-import { client } from '../client';
 import { ProfileContent } from '../components/Profile';
+import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-user';
-import { Profile } from '../models';
 import { PageWrapper } from './PageWrapper';
-
-const testAdmin = {
-  email: '',
-  firstName: '',
-  lastName: '',
-  type: 'admin',
-} as const;
-const testUser = {
-  email: '',
-  firstName: '',
-  lastName: '',
-  type: 'regular',
-} as const;
 
 const styles = StyleSheet.create({
   wrapper: { backgroundColor: 'white' },
@@ -29,31 +15,29 @@ const styles = StyleSheet.create({
 });
 
 export function ProfileScreen() {
-  const { login, logout, isGuest } = useAuthentication();
-  const [profile, setProfile] = useState<Profile>();
-
-  useEffect(() => {
-    const asyncFunc = async () => {
-      const fetchedProfile = await client.getProfile(1);
-      setProfile(fetchedProfile);
-    };
-    asyncFunc();
-  }, []);
+  const { logout, isGuest, profile } = useAuthentication();
+  const { navigate } = useCustomNavigation();
 
   return (
-    <PageWrapper style={styles.wrapper} scrollable={false}>
+    <PageWrapper style={styles.wrapper} scrollable>
       {profile && <ProfileContent profile={profile} />}
       {isGuest ? (
         <>
-          <Button mode="contained" onPress={() => login(testAdmin)}>
+          <Button mode="contained" onPress={() => {}}>
             <Paragraph>Log as Admin</Paragraph>
           </Button>
 
           <Button
             mode="contained"
             style={styles.bottomButton}
-            onPress={() => login(testUser)}>
-            <Paragraph>Log as Regular</Paragraph>
+            onPress={() => navigate('SignIn')}>
+            <Paragraph>Sign In</Paragraph>
+          </Button>
+          <Button
+            mode="contained"
+            style={styles.bottomButton}
+            onPress={() => {}}>
+            <Paragraph>Sign Up</Paragraph>
           </Button>
         </>
       ) : (
