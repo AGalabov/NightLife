@@ -36,14 +36,14 @@ const imageUri =
 
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
-  withBackButton: boolean;
+  withBackButton?: boolean;
   scrollable: boolean;
   children: ReactNode;
 }
 
 export function PageWrapper({
   style,
-  withBackButton,
+  withBackButton = false,
   scrollable,
   children,
 }: PageWrapperProps) {

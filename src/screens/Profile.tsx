@@ -32,7 +32,7 @@ export function ProfileScreen() {
           <Button
             mode="contained"
             style={styles.bottomButton}
-            onPress={() => {}}>
+            onPress={() => navigate('SignUp')}>
             <Paragraph>Sign Up</Paragraph>
           </Button>
         </>
