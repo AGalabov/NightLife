@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
+import { isValidEmail, isValidPassword } from '../../../utils/validators';
 import { TextInput } from '../../Form/TextInput';
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 16,
+    // marginTop: 6,
   },
   button: {
     height: 50,
@@ -26,7 +27,12 @@ interface SignInFormProps {
 }
 
 export function SignInForm({ onSubmit, style }: SignInFormProps) {
-  const { register, handleSubmit, setValue } = useForm<SignInFormValues>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    errors,
+  } = useForm<SignInFormValues>({
     mode: 'onSubmit',
     defaultValues: {
       email: '',
@@ -35,8 +41,14 @@ export function SignInForm({ onSubmit, style }: SignInFormProps) {
   });
 
   useEffect(() => {
-    register('email');
-    register('password');
+    register('email', {
+      required: 'Email is required',
+      validate: isValidEmail,
+    });
+    register('password', {
+      required: 'Password is required',
+      validate: isValidPassword,
+    });
   }, [register]);
 
   return (
@@ -44,12 +56,15 @@ export function SignInForm({ onSubmit, style }: SignInFormProps) {
       <TextInput
         label="Email Address"
         placeholder="Enter Email Address"
+        error={errors.email?.message}
         onChange={(value) => setValue('email', value)}
       />
       <TextInput
         label="Password"
         placeholder="Enter Password"
-        style={styles.input}
+        boxStyle={styles.input}
+        error={errors.password?.message}
+        secureTextEntry
         onChange={(value) => setValue('password', value)}
       />
 

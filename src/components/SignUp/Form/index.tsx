@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
+import {
+  isValidEmail,
+  isValidFullName,
+  isValidPassword,
+} from '../../../utils/validators';
 import { TextInput } from '../../Form/TextInput';
 
 const styles = StyleSheet.create({
@@ -19,7 +24,6 @@ type SignUpFormValues = {
   fullName: string;
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
 interface SignInFormProps {
@@ -28,21 +32,34 @@ interface SignInFormProps {
 }
 
 export function SignUpForm({ onSubmit, style }: SignInFormProps) {
-  const { register, handleSubmit, setValue } = useForm<SignUpFormValues>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    errors,
+  } = useForm<SignUpFormValues>({
     mode: 'onSubmit',
     defaultValues: {
       fullName: '',
       email: '',
       password: '',
-      confirmPassword: '',
     },
   });
 
   useEffect(() => {
-    register('fullName');
-    register('email');
-    register('password');
-    register('confirmPassword');
+    register('email', {
+      required: 'Email is required',
+      validate: isValidEmail,
+    });
+    register('password', {
+      required: 'Password is required',
+      validate: isValidPassword,
+    });
+
+    register('fullName', {
+      required: 'First and Last names are required',
+      validate: isValidFullName,
+    });
   }, [register]);
 
   return (
@@ -50,24 +67,23 @@ export function SignUpForm({ onSubmit, style }: SignInFormProps) {
       <TextInput
         label="Full Name"
         placeholder="Enter First and Last Name"
+        error={errors.fullName?.message}
         onChange={(value) => setValue('fullName', value)}
       />
       <TextInput
         label="Email Address"
         placeholder="Enter Email Address"
+        boxStyle={styles.input}
+        error={errors.email?.message}
         onChange={(value) => setValue('email', value)}
       />
       <TextInput
         label="Password"
         placeholder="Enter Password"
-        style={styles.input}
+        boxStyle={styles.input}
+        error={errors.password?.message}
+        secureTextEntry
         onChange={(value) => setValue('password', value)}
-      />
-      <TextInput
-        label="Confirm Password"
-        placeholder="Confirm Your Password"
-        style={styles.input}
-        onChange={(value) => setValue('confirmPassword', value)}
       />
 
       <Button
