@@ -8,7 +8,7 @@ const adminTabRoutes = [...commonTabRoutes, 'AddEvent'] as const;
 const tabRoutes = [...userTabRoutes, ...adminTabRoutes] as const;
 export type TabRoutes = typeof tabRoutes[number];
 
-const additionalRoutes = ['EventDetails'] as const;
+const additionalRoutes = ['EventDetails', 'SignIn', 'SignUp'] as const;
 
 const routes = [...tabRoutes, ...additionalRoutes] as const;
 export type Routes = typeof routes[number];

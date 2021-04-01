@@ -51,8 +51,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     'react/require-default-props': 0,
 
-    'react-hooks/exhaustive-deps': 'warn',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'error',
 
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,

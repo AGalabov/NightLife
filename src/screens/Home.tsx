@@ -17,5 +17,9 @@ export function HomeScreen() {
     asyncAction();
   }, []);
 
-  return <PageWrapper>{events && <EventList events={events} />}</PageWrapper>;
+  return (
+    <PageWrapper scrollable>
+      {events && <EventList events={events} />}
+    </PageWrapper>
+  );
 }

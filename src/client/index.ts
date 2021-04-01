@@ -12,9 +12,24 @@ class Client {
   }
 
   getProfile(id: number): Promise<Profile> {
-    return Promise.resolve(
-      data.profiles.find((profile) => profile.userId === id)!,
+    const result = data.profiles.find((profile) => profile.userId === id);
+
+    if (!result) {
+      throw new Error('Oops something went wrong');
+    }
+
+    return Promise.resolve(result as Profile);
+  }
+
+  login(email: string, password: string): Promise<Profile> {
+    const userData = data.users.find(
+      (user) => user.email === email && user.password === password,
     );
+    if (!userData) {
+      throw new Error('Invalid user data');
+    }
+
+    return this.getProfile(userData.userId);
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Paragraph } from 'react-native-paper';
 import { PageWrapper } from './PageWrapper';
 
 const styles = StyleSheet.create({
@@ -13,9 +14,9 @@ const styles = StyleSheet.create({
 
 export function EventDetailsScreen() {
   return (
-    <PageWrapper>
+    <PageWrapper scrollable>
       <View style={styles.root}>
-        <Text>EventDetails</Text>
+        <Paragraph>EventDetails</Paragraph>
       </View>
     </PageWrapper>
   );
