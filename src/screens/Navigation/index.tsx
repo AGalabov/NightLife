@@ -4,6 +4,7 @@ import { AdminTabNavigation, UserTabNavigation } from './TabNavigation';
 import { EventDetailsScreen } from '../EventDetails';
 import { useAuthentication } from '../../hooks/use-authentication';
 import { SignInScreen } from '../SignIn';
+import { SignUpScreen } from '../SignUp';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -19,6 +20,7 @@ export function RootNavigation() {
       />
       <Screen name="EventDetails" component={EventDetailsScreen} />
       <Screen name="SignIn" component={SignInScreen} />
+      <Screen name="SignUp" component={SignUpScreen} />
     </Navigator>
   );
 }

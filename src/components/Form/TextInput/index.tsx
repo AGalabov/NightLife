@@ -1,13 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
-import { Paragraph, TextInput as PaperTextInput } from 'react-native-paper';
+import {
+  StyleSheet,
+  View,
+  TextInputProps as NativeTextInputProps,
+  ViewStyle,
+} from 'react-native';
+import {
+  Caption,
+  Paragraph,
+  TextInput as PaperTextInput,
+} from 'react-native-paper';
 
-interface TextInputProps {
+type TextInputProps = Omit<
+  NativeTextInputProps,
+  'selectionColor' | 'onChange'
+> & {
   onChange: (val: string) => void;
   label: string;
-  placeholder: string;
-  style?: ViewStyle;
-}
+  error?: string;
+  boxStyle?: ViewStyle;
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -15,22 +27,28 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   label: { color: 'white' },
+  error: { color: 'red' },
+  errorContainer: { borderColor: 'red', borderWidth: 1 },
 });
 
 export function TextInput({
   label,
+  error,
   placeholder,
   onChange,
-  style,
+  boxStyle,
+  ...rest
 }: TextInputProps) {
   return (
-    <View style={style}>
+    <View style={boxStyle}>
       <Paragraph style={styles.label}>{label}</Paragraph>
       <PaperTextInput
         placeholder={placeholder}
-        style={styles.input}
+        style={[styles.input, error ? styles.errorContainer : undefined]}
         onChangeText={onChange}
+        {...rest}
       />
+      {error && <Caption style={styles.error}>{error}</Caption>}
     </View>
   );
 }

@@ -2,12 +2,16 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
-import { isValidEmail, isValidPassword } from '../../../utils/validators';
+import {
+  isValidEmail,
+  isValidFullName,
+  isValidPassword,
+} from '../../../utils/validators';
 import { TextInput } from '../../Form/TextInput';
 
 const styles = StyleSheet.create({
   input: {
-    // marginTop: 6,
+    marginTop: 16,
   },
   button: {
     height: 50,
@@ -16,25 +20,27 @@ const styles = StyleSheet.create({
   },
 });
 
-type SignInFormValues = {
+type SignUpFormValues = {
+  fullName: string;
   email: string;
   password: string;
 };
 
 interface SignInFormProps {
-  onSubmit: (data: SignInFormValues) => Promise<void>;
+  onSubmit: (data: SignUpFormValues) => Promise<void>;
   style?: ViewStyle;
 }
 
-export function SignInForm({ onSubmit, style }: SignInFormProps) {
+export function SignUpForm({ onSubmit, style }: SignInFormProps) {
   const {
     register,
     handleSubmit,
     setValue,
     errors,
-  } = useForm<SignInFormValues>({
+  } = useForm<SignUpFormValues>({
     mode: 'onSubmit',
     defaultValues: {
+      fullName: '',
       email: '',
       password: '',
     },
@@ -49,13 +55,25 @@ export function SignInForm({ onSubmit, style }: SignInFormProps) {
       required: 'Password is required',
       validate: isValidPassword,
     });
+
+    register('fullName', {
+      required: 'First and Last names are required',
+      validate: isValidFullName,
+    });
   }, [register]);
 
   return (
     <View style={style}>
       <TextInput
+        label="Full Name"
+        placeholder="Enter First and Last Name"
+        error={errors.fullName?.message}
+        onChange={(value) => setValue('fullName', value)}
+      />
+      <TextInput
         label="Email Address"
         placeholder="Enter Email Address"
+        boxStyle={styles.input}
         error={errors.email?.message}
         onChange={(value) => setValue('email', value)}
       />
@@ -72,7 +90,7 @@ export function SignInForm({ onSubmit, style }: SignInFormProps) {
         mode="contained"
         style={styles.button}
         onPress={handleSubmit(onSubmit)}>
-        Sign In
+        Sign Up
       </Button>
     </View>
   );
