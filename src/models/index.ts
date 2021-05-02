@@ -1,11 +1,14 @@
-export type MusicCategory =
-  | 'rap'
-  | 'rock'
-  | 'reggaeton'
-  | 'pop-folk'
-  | 'pop'
-  | 'county'
-  | 'other';
+export const categories = [
+  'rap',
+  'rock',
+  'reggaeton',
+  'pop-folk',
+  'pop',
+  'county',
+  'other',
+] as const;
+
+export type MusicCategory = typeof categories[number];
 
 export interface Event {
   eventId: string;

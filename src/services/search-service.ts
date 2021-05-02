@@ -1,10 +1,11 @@
 /* eslint-disable class-methods-use-this */
+import { client } from '.';
 import { MusicCategory, Event } from '../models';
-import data from './data.json';
 
 export enum SortingCriteria {
   PRICE,
   DATE,
+  RATING,
   // DISTANCE,
 }
 
@@ -13,30 +14,25 @@ export enum SortingOrder {
   DESC,
 }
 
-interface SortingOptions {
+export interface SortingOptions {
   criteria: SortingCriteria;
   order: SortingOrder;
 }
 
-interface SearchParams {
+export interface SearchParams {
   categories?: MusicCategory[];
   query?: string;
   sortBy?: SortingOptions;
 }
 
 class SearchService {
-  private events: Event[];
-
-  constructor() {
-    this.events = data.events as Event[];
-  }
-
-  search({
+  async search({
     categories,
     query,
     sortBy = { criteria: SortingCriteria.DATE, order: SortingOrder.DESC },
-  }: SearchParams): Event[] {
-    const filteredResults = this.filterBy({ categories, query });
+  }: SearchParams): Promise<Event[]> {
+    const events = await client.getEvents();
+    const filteredResults = this.filterBy(events, { categories, query });
 
     return filteredResults.sort((ev1, ev2) =>
       this.comparator(ev1, ev2, sortBy),
@@ -58,14 +54,17 @@ class SearchService {
     return 1;
   }
 
-  private filterBy({
-    categories,
-    query,
-  }: {
-    categories?: MusicCategory[];
-    query?: string;
-  }) {
-    return this.events.filter((event) => {
+  private filterBy(
+    events: Event[],
+    {
+      categories,
+      query,
+    }: {
+      categories?: MusicCategory[];
+      query?: string;
+    },
+  ) {
+    return events.filter((event) => {
       const matchesQuery = !query || event.title.toLowerCase().includes(query);
       const matchesCategory =
         !categories ||
