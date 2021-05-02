@@ -5,7 +5,7 @@ import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 import { SignInForm } from '../components/SignIn/Form';
-import { client } from '../client';
+import { client } from '../services';
 
 const styles = StyleSheet.create({
   wrapper: { marginTop: 60 },

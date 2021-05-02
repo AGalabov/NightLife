@@ -43,8 +43,11 @@ module.exports = {
       }
     ],
 
+    // TS Specific usage
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
 
     'react/jsx-curly-newline': 'off',
     "react/jsx-one-expression-per-line": "off",
