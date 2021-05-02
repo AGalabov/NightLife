@@ -14,7 +14,7 @@ const theme: Theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: '#6979F8',
-    text: 'white',
+    text: 'white', // TODO: Fix in other places first (profile + login/sign up forms)
     accent: '#6979F8',
     placeholder: '#8C8C8C',
   },

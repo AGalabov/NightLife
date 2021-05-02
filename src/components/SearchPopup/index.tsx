@@ -9,6 +9,7 @@ import {
 } from '../../services/search-service';
 import { CheckboxButton } from '../CheckboxButton';
 import { MusicCategory, categories } from '../../models';
+import { RadioGroup } from '../RadioGroup';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,6 +53,12 @@ function transformCategoriesMap(categoriesMap: CategoriesMap): MusicCategory[] {
   ) as MusicCategory[];
 }
 
+const sortingOptions = [
+  { value: SortingCriteria.DATE, label: 'By Date' },
+  { value: SortingCriteria.PRICE, label: 'By Price' },
+  { value: SortingCriteria.RATING, label: 'By Rating' },
+];
+
 export function SearchPopup({
   isOpen,
   onClose,
@@ -62,7 +69,7 @@ export function SearchPopup({
       [key in MusicCategory]?: boolean;
     }
   >({});
-  const [sortBy] = useState<SortingOptions>({
+  const [sortBy, setSortBy] = useState<SortingOptions>({
     criteria: SortingCriteria.PRICE,
     order: SortingOrder.ASC,
   });
@@ -77,6 +84,18 @@ export function SearchPopup({
       onDismiss={onClose}
       contentContainerStyle={styles.container}>
       <ScrollView>
+        <Headline>Sort</Headline>
+        <RadioGroup
+          options={sortingOptions}
+          selectedValue={sortBy.criteria}
+          onClick={(value) =>
+            setSortBy((prev) => ({
+              ...prev,
+              criteria: value,
+            }))
+          }
+        />
+
         <Headline>Music Type</Headline>
         <FlatGrid
           itemDimension={110}

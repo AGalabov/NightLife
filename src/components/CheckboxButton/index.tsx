@@ -25,6 +25,7 @@ export const CheckboxButton = ({
         setChecked(!checked);
       }}
       dark={checked}
+      color={checked ? undefined : 'white'}
       style={style}>
       {label}
     </Button>
