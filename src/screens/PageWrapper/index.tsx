@@ -26,16 +26,8 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     justifyContent: 'center',
   },
-  backButton: {
+  transparent: {
     backgroundColor: 'transparent',
-  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    position: 'absolute',
-    top: 0,
-    zIndex: 1000,
-    // maxHeight: 60,
   },
 });
 
@@ -58,34 +50,40 @@ export function PageWrapper({
   children,
 }: PageWrapperProps) {
   const { goBack } = useCustomNavigation();
+
+  const hasCustomHeader = header && header !== 'back-navigation';
+
+  const contentStyle = hasCustomHeader
+    ? { ...styles.content, marginTop: 0 }
+    : styles.content;
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={{
-          uri: imageUri,
-        }}>
-        {header && (
-          <View style={styles.header}>
-            {header === 'back-navigation' ? (
+    <>
+      {hasCustomHeader && header}
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={{
+            uri: imageUri,
+          }}>
+          {header === 'back-navigation' && (
+            <View style={styles.transparent}>
               <IconButton
-                style={styles.backButton}
+                style={styles.transparent}
                 color="white"
                 size={30}
                 icon="chevron-left"
                 onPress={goBack}
               />
-            ) : (
-              header
-            )}
-          </View>
-        )}
-        {scrollable ? (
-          <ScrollView style={[styles.content, style]}>{children}</ScrollView>
-        ) : (
-          <View style={[styles.content, style]}>{children}</View>
-        )}
-      </ImageBackground>
-    </View>
+            </View>
+          )}
+          {scrollable ? (
+            <ScrollView style={[contentStyle, style]}>{children}</ScrollView>
+          ) : (
+            <View style={[contentStyle, style]}>{children}</View>
+          )}
+        </ImageBackground>
+      </View>
+    </>
   );
 }
