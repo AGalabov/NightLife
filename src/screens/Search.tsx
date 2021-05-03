@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Paragraph, Button, Portal } from 'react-native-paper';
 import { EventList } from '../components/Event/List';
-import { SearchPopup } from '../components/SearchPopup';
+import { RefinementPopup } from '../components/Search/RefinementPopup';
 import { MusicCategory, Event } from '../models';
 import { search } from '../services/search-service';
 import { PageWrapper } from './PageWrapper';
@@ -33,7 +33,7 @@ export function SearchScreen() {
         {events && <EventList events={events} />}
       </PageWrapper>
       <Portal>
-        <SearchPopup
+        <RefinementPopup
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onSearchPerform={loadEvents}
