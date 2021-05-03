@@ -1,8 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import {
   Dimensions,
   ImageBackground,
-  KeyboardAvoidingView,
   ScrollView,
   StyleProp,
   StyleSheet,
@@ -30,6 +29,14 @@ const styles = StyleSheet.create({
   backButton: {
     backgroundColor: 'transparent',
   },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 0,
+    zIndex: 1000,
+    // maxHeight: 60,
+  },
 });
 
 const imageUri =
@@ -39,33 +46,39 @@ const imageUri =
 
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
-  withBackButton?: boolean;
+  header?: 'back-navigation' | ReactElement;
   scrollable: boolean;
   children: ReactNode;
 }
 
 export function PageWrapper({
   style,
-  withBackButton = false,
+  header,
   scrollable,
   children,
 }: PageWrapperProps) {
   const { goBack } = useCustomNavigation();
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <View style={styles.container}>
       <ImageBackground
         style={styles.image}
         source={{
           uri: imageUri,
         }}>
-        {withBackButton && (
-          <IconButton
-            style={styles.backButton}
-            color="white"
-            size={30}
-            icon="chevron-left"
-            onPress={goBack}
-          />
+        {header && (
+          <View style={styles.header}>
+            {header === 'back-navigation' ? (
+              <IconButton
+                style={styles.backButton}
+                color="white"
+                size={30}
+                icon="chevron-left"
+                onPress={goBack}
+              />
+            ) : (
+              header
+            )}
+          </View>
         )}
         {scrollable ? (
           <ScrollView style={[styles.content, style]}>{children}</ScrollView>
@@ -73,6 +86,6 @@ export function PageWrapper({
           <View style={[styles.content, style]}>{children}</View>
         )}
       </ImageBackground>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
