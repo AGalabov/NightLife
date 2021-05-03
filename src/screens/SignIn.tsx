@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
@@ -36,16 +36,14 @@ export function SignInScreen() {
   };
 
   return (
-    <PageWrapper scrollable={false} withBackButton>
-      <View style={styles.wrapper}>
-        <Title style={styles.title}>Sign In</Title>
+    <PageWrapper scrollable withBackButton style={styles.wrapper}>
+      <Title style={styles.title}>Sign In</Title>
 
-        {error && <Paragraph style={styles.error}>{error}</Paragraph>}
-        <SignInForm
-          style={styles.form}
-          onSubmit={(data) => onLogin(data.email, data.password)}
-        />
-      </View>
+      {error && <Paragraph style={styles.error}>{error}</Paragraph>}
+      <SignInForm
+        style={styles.form}
+        onSubmit={(data) => onLogin(data.email, data.password)}
+      />
     </PageWrapper>
   );
 }
