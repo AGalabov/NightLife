@@ -9,9 +9,14 @@ type Theme = typeof DefaultTheme;
 
 const theme: Theme = {
   ...DefaultTheme,
+  dark: true,
+
   colors: {
     ...DefaultTheme.colors,
-    accent: 'yellow',
+    primary: '#6979F8',
+    // text: 'white', // TODO: Fix in other places first (profile + login/sign up forms)
+    accent: '#6979F8',
+    placeholder: '#8C8C8C',
   },
 };
 

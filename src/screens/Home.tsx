@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { client } from '../client';
+import { client } from '../services';
 import { EventList } from '../components/Event/List';
 import { Event } from '../models';
 import { PageWrapper } from './PageWrapper';
@@ -10,9 +10,7 @@ export function HomeScreen() {
   useEffect(() => {
     const asyncAction = async () => {
       const fetchedEvents = await client.getEvents();
-
-      const replicated = Array(5).fill(fetchedEvents[0]);
-      setEvents(replicated);
+      setEvents(fetchedEvents);
     };
     asyncAction();
   }, []);

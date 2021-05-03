@@ -1,13 +1,26 @@
+export const categories = [
+  'rap',
+  'rock',
+  'reggaeton',
+  'pop-folk',
+  'pop',
+  'county',
+  'other',
+] as const;
+
+export type MusicCategory = typeof categories[number];
+
 export interface Event {
-  eventId: number;
+  eventId: string;
   title: string;
   date: string;
   price: number;
+  musicCategories: MusicCategory[];
   description: string;
   photos: {}[];
-  venueId: number;
+  venueId: string;
   artist: string;
-  artistId?: number;
+  artistId?: string;
 }
 
 interface WorkingHours {
@@ -16,7 +29,7 @@ interface WorkingHours {
 }
 
 export interface Venue {
-  venueId: number;
+  venueId: string;
   coordinates: {
     lat: number;
     lng: number;
@@ -40,10 +53,10 @@ export interface Venue {
 export interface Profile {
   email: string;
   type: 'regular' | 'admin';
-  userId: number;
+  userId: string;
   firstName: string;
   lastName: string;
-  favoriteVenues: number[];
-  favoriteArtists: number[];
-  visitedEvents: number[];
+  favoriteVenues: string[];
+  favoriteArtists: string[];
+  visitedEvents: string[];
 }
