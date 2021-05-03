@@ -1,4 +1,4 @@
-export const categories = [
+const categoryValues = [
   'rap',
   'rock',
   'reggaeton',
@@ -7,8 +7,8 @@ export const categories = [
   'county',
   'other',
 ] as const;
-
-export type MusicCategory = typeof categories[number];
+export type MusicCategory = typeof categoryValues[number];
+export const categories = (categoryValues as unknown) as MusicCategory[];
 
 export interface Event {
   eventId: string;

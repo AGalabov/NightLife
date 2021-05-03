@@ -101,8 +101,7 @@ export function SearchPopup({
         <Headline>Music Type</Headline>
         <FlatGrid
           itemDimension={110}
-          // TODO: Check this
-          data={(categories as unknown) as MusicCategory[]}
+          data={categories}
           style={styles.gridView}
           spacing={10}
           renderItem={({ item: category }) => (
@@ -114,6 +113,7 @@ export function SearchPopup({
                   [category]: isChecked,
                 }));
               }}
+              initiallyChecked={categoriesMap[category]}
               label={category}
               style={styles.itemContainer}
             />
