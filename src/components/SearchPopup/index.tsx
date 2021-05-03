@@ -10,10 +10,11 @@ import {
 import { CheckboxButton } from '../CheckboxButton';
 import { MusicCategory, categories } from '../../models';
 import { RadioGroup } from '../RadioGroup';
+import { black } from '../../assets/colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1B1B1B',
+    backgroundColor: black,
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
     padding: 20,
@@ -76,6 +77,7 @@ export function SearchPopup({
 
   const onPress = () => {
     onSearchPerform(transformCategoriesMap(categoriesMap), sortBy);
+    onClose();
   };
 
   return (

@@ -6,9 +6,10 @@ import { ProfileContent } from '../components/Profile';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
+import { backgroundGray } from '../assets/colors';
 
 const styles = StyleSheet.create({
-  wrapper: { backgroundColor: 'white' },
+  wrapper: { backgroundColor: backgroundGray },
   bottomButton: {
     marginTop: 8,
   },

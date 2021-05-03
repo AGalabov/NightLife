@@ -1,5 +1,7 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Avatar, Button, Card } from 'react-native-paper';
+import { backgroundGray } from '../../../assets/colors';
 import { Event } from '../../../models';
 
 interface EventCardProps {
@@ -20,9 +22,13 @@ const LeftContent = (props: AvatarImageProps) => (
   />
 );
 
+const styles = StyleSheet.create({
+  cardContainer: { backgroundColor: backgroundGray, opacity: 0.95 },
+});
+
 export function EventCard({ event }: EventCardProps) {
   return (
-    <Card elevation={5}>
+    <Card elevation={5} style={styles.cardContainer}>
       <Card.Cover
         source={{
           uri:
