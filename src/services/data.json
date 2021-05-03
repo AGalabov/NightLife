@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "test@example.com",
-      "password": "parola1234",
+      "password": "parola12!",
       "userId": "1"
     }
   ],

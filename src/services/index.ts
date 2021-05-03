@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { uniqueId } from 'lodash';
+import { shuffle, uniqueId } from 'lodash';
 import { Venue, Event, Profile, MusicCategory } from '../models';
 import data from './data.json';
 
@@ -22,7 +22,7 @@ function generateEventsFor(category: MusicCategory, count: number): Event[] {
 }
 
 function generateEvents() {
-  return [
+  return shuffle([
     ...generateEventsFor('pop-folk', 5),
     ...generateEventsFor('rock', 3),
     ...generateEventsFor('pop', 4),
@@ -30,17 +30,24 @@ function generateEvents() {
     ...generateEventsFor('other', 6),
     ...generateEventsFor('reggaeton', 2),
     ...generateEventsFor('rap', 2),
-  ];
+  ]);
 }
 
 class Client {
+  private events: Event[];
+
+  constructor() {
+    // Generates some event mock data that we want
+    // to keep as persistent during the browsing
+    this.events = generateEvents();
+  }
+
   getVenues(): Promise<Venue[]> {
     return Promise.resolve(data.venues);
   }
 
   getEvents(): Promise<Event[]> {
-    const events = generateEvents();
-    return Promise.resolve(events);
+    return Promise.resolve(this.events);
   }
 
   getProfile(id: string): Promise<Profile> {

@@ -1,20 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { Paragraph, Button, Portal } from 'react-native-paper';
 import { EventList } from '../components/Event/List';
 import { SearchPopup } from '../components/SearchPopup';
 import { MusicCategory, Event } from '../models';
 import { search } from '../services/search-service';
 import { PageWrapper } from './PageWrapper';
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'blue',
-  },
-});
 
 export function SearchScreen() {
   const [events, setEvents] = useState<Event[]>();
@@ -37,11 +27,9 @@ export function SearchScreen() {
   return (
     <>
       <PageWrapper scrollable>
-        <View style={styles.root}>
-          <Button onPress={() => setIsModalOpen(true)}>
-            <Paragraph>Refine</Paragraph>
-          </Button>
-        </View>
+        <Button mode="contained" onPress={() => setIsModalOpen(true)}>
+          <Paragraph>Refine</Paragraph>
+        </Button>
         {events && <EventList events={events} />}
       </PageWrapper>
       <Portal>

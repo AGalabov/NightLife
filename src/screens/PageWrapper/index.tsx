@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 import {
+  Dimensions,
   ImageBackground,
+  KeyboardAvoidingView,
   ScrollView,
   StyleProp,
   StyleSheet,
@@ -20,8 +22,9 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   image: {
-    flex: 1,
-    resizeMode: 'cover',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    resizeMode: 'stretch',
     justifyContent: 'center',
   },
   backButton: {
@@ -49,7 +52,7 @@ export function PageWrapper({
 }: PageWrapperProps) {
   const { goBack } = useCustomNavigation();
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <ImageBackground
         style={styles.image}
         source={{
@@ -70,6 +73,6 @@ export function PageWrapper({
           <View style={[styles.content, style]}>{children}</View>
         )}
       </ImageBackground>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
