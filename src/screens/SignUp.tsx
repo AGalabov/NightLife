@@ -39,7 +39,7 @@ export function SignUpScreen() {
         favoriteVenues: [],
         visitedEvents: [],
         type: 'regular',
-        userId: 1234,
+        userId: '1234',
       };
 
       // TODO: Switch to actual request for sign up
@@ -51,7 +51,7 @@ export function SignUpScreen() {
   };
 
   return (
-    <PageWrapper scrollable={false} withBackButton>
+    <PageWrapper scrollable={false} header="back-navigation">
       <View style={styles.wrapper}>
         <Title style={styles.title}>Sign Up</Title>
 

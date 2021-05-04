@@ -36,7 +36,7 @@ export function SignInScreen() {
   };
 
   return (
-    <PageWrapper scrollable withBackButton style={styles.wrapper}>
+    <PageWrapper scrollable header="back-navigation" style={styles.wrapper}>
       <Title style={styles.title}>Sign In</Title>
 
       {error && <Paragraph style={styles.error}>{error}</Paragraph>}

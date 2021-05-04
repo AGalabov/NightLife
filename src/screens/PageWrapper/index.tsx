@@ -1,8 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import {
   Dimensions,
   ImageBackground,
-  KeyboardAvoidingView,
   ScrollView,
   StyleProp,
   StyleSheet,
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     justifyContent: 'center',
   },
-  backButton: {
+  transparent: {
     backgroundColor: 'transparent',
   },
 });
@@ -39,40 +38,52 @@ const imageUri =
 
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
-  withBackButton?: boolean;
+  header?: 'back-navigation' | ReactElement;
   scrollable: boolean;
   children: ReactNode;
 }
 
 export function PageWrapper({
   style,
-  withBackButton = false,
+  header,
   scrollable,
   children,
 }: PageWrapperProps) {
   const { goBack } = useCustomNavigation();
+
+  const hasCustomHeader = header && header !== 'back-navigation';
+
+  const contentStyle = hasCustomHeader
+    ? { ...styles.content, marginTop: 0 }
+    : styles.content;
+
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
-      <ImageBackground
-        style={styles.image}
-        source={{
-          uri: imageUri,
-        }}>
-        {withBackButton && (
-          <IconButton
-            style={styles.backButton}
-            color="white"
-            size={30}
-            icon="chevron-left"
-            onPress={goBack}
-          />
-        )}
-        {scrollable ? (
-          <ScrollView style={[styles.content, style]}>{children}</ScrollView>
-        ) : (
-          <View style={[styles.content, style]}>{children}</View>
-        )}
-      </ImageBackground>
-    </KeyboardAvoidingView>
+    <>
+      {hasCustomHeader && header}
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={{
+            uri: imageUri,
+          }}>
+          {header === 'back-navigation' && (
+            <View style={styles.transparent}>
+              <IconButton
+                style={styles.transparent}
+                color="white"
+                size={30}
+                icon="chevron-left"
+                onPress={goBack}
+              />
+            </View>
+          )}
+          {scrollable ? (
+            <ScrollView style={[contentStyle, style]}>{children}</ScrollView>
+          ) : (
+            <View style={[contentStyle, style]}>{children}</View>
+          )}
+        </ImageBackground>
+      </View>
+    </>
   );
 }

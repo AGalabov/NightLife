@@ -1,42 +1,61 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Paragraph, Button, Portal } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { Portal } from 'react-native-paper';
 import { EventList } from '../components/Event/List';
-import { SearchPopup } from '../components/SearchPopup';
-import { MusicCategory, Event } from '../models';
-import { search } from '../services/search-service';
+import { SearchHeader } from '../components/Search/Header';
+import { RefinementPopup } from '../components/Search/RefinementPopup';
+import { Event } from '../models';
+import { search, SearchParams } from '../services/search-service';
 import { PageWrapper } from './PageWrapper';
+
+const styles = StyleSheet.create({
+  eventList: {
+    marginTop: 16,
+  },
+});
 
 export function SearchScreen() {
   const [events, setEvents] = useState<Event[]>();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const loadEvents = useCallback(
-    async (categories?: MusicCategory[], sortBy?) => {
-      // TODO: Add query
-      const fetchedEvents = await search.search({ categories, sortBy });
-      setEvents(fetchedEvents);
-    },
-    [],
-  );
+  // TODO: Currently there are 2 options:
+  // - search by query
+  // - filter + sort from the refinement popup
+  // => they should probably be unified (common state would be required)
+  const loadEvents = useCallback(async (params: SearchParams = {}) => {
+    const fetchedEvents = await search.search(params);
+    setEvents(fetchedEvents);
+  }, []);
 
+  // Used for the initial load of all events - an alternative could be to
+  // showcase the search options with no initial results
   useEffect(() => {
     loadEvents();
   }, [loadEvents]);
 
+  const header = (
+    <SearchHeader
+      isList
+      // TODO: Change the view once the map integration is complete
+      onChangeViewClick={() => {}}
+      onRefineClick={() => setIsModalOpen(true)}
+      onSearchPerform={(query) => loadEvents({ query })}
+    />
+  );
+
   return (
     <>
-      <PageWrapper scrollable>
-        <Button mode="contained" onPress={() => setIsModalOpen(true)}>
-          <Paragraph>Refine</Paragraph>
-        </Button>
-        {events && <EventList events={events} />}
+      <PageWrapper header={header} scrollable>
+        {events && <EventList events={events} style={styles.eventList} />}
       </PageWrapper>
       <Portal>
-        <SearchPopup
+        <RefinementPopup
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onSearchPerform={loadEvents}
+          onSearchPerform={(categories, sortBy) =>
+            loadEvents({ categories, sortBy })
+          }
         />
       </Portal>
     </>

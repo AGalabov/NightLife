@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Event } from '../../../models';
 import { EventCard } from '../Card';
 
 interface EventListProps {
   events: Event[];
+  style?: ViewStyle;
 }
 
 const styles = StyleSheet.create({
@@ -13,9 +14,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export function EventList({ events }: EventListProps) {
+export function EventList({ events, style }: EventListProps) {
   return (
-    <View>
+    <View style={style}>
       {events.map((event) => (
         <View key={event.eventId} style={styles.margin}>
           <EventCard event={event} />

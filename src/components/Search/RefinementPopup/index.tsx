@@ -6,11 +6,11 @@ import {
   SortingCriteria,
   SortingOptions,
   SortingOrder,
-} from '../../services/search-service';
-import { CheckboxButton } from '../CheckboxButton';
-import { MusicCategory, categories } from '../../models';
-import { RadioGroup } from '../RadioGroup';
-import { black } from '../../assets/colors';
+} from '../../../services/search-service';
+import { CheckboxButton } from '../../CheckboxButton';
+import { MusicCategory, categories } from '../../../models';
+import { RadioGroup } from '../../RadioGroup';
+import { black } from '../../../assets/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface SearchPopupProps {
+interface RefinementPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onSearchPerform: (
@@ -60,11 +60,11 @@ const sortingOptions = [
   { value: SortingCriteria.RATING, label: 'By Rating' },
 ];
 
-export function SearchPopup({
+export function RefinementPopup({
   isOpen,
   onClose,
   onSearchPerform,
-}: SearchPopupProps) {
+}: RefinementPopupProps) {
   const [categoriesMap, setCategoriesMap] = useState<
     {
       [key in MusicCategory]?: boolean;
