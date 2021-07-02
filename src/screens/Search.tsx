@@ -11,6 +11,8 @@ import { PageWrapper } from './PageWrapper';
 const styles = StyleSheet.create({
   eventList: {
     marginTop: 16,
+    // TODO: Why is this needed?
+    marginBottom: 120,
   },
 });
 

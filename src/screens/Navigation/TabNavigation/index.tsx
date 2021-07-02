@@ -49,6 +49,9 @@ export const AdminTabNavigation = () => {
     <Admin.Navigator
       initialRouteName="Profile"
       shifting
+      inactiveColor="white"
+      activeColor={activeBlue}
+      barStyle={{ backgroundColor: black }}
       sceneAnimationEnabled={false}>
       <Admin.Screen
         name="Search"
