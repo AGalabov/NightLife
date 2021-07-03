@@ -1,11 +1,12 @@
 import { useRoute } from '@react-navigation/core';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { StyleSheet, ScrollView } from 'react-native';
 import { EventDetails } from '../components/Event/Details';
 import { client } from '../services';
 import { Event, Venue } from '../models';
 import { backgroundGray } from '../assets/colors';
+import { useAsync } from '../hooks/use-async';
 
 const styles = StyleSheet.create({
   root: {
@@ -16,28 +17,27 @@ const styles = StyleSheet.create({
 export function EventDetailsScreen() {
   const { params } = useRoute();
   const { eventId } = params as { eventId: string };
-  const [event, setEvent] = useState<Event>();
-  const [eventVenue, setEventVenue] = useState<Venue>();
 
-  useEffect(() => {
-    const asyncAction = async () => {
-      const fetchedEvent = await client.getEventById(eventId);
-      setEvent(fetchedEvent);
-      if (!fetchedEvent) {
-        return;
-      }
+  const { data } = useAsync<{ event?: Event; venue?: Venue }>(async () => {
+    const fetchedEvent = await client.getEventById(eventId);
 
-      const [venue] = await Promise.all([
-        client.getVenueById(fetchedEvent.venueId),
-      ]);
-      setEventVenue(venue);
+    if (!fetchedEvent) {
+      return { event: undefined, venue: undefined };
+    }
+
+    const fetchedVenue = await client.getVenueById(fetchedEvent.venueId);
+
+    return {
+      event: fetchedEvent,
+      venue: fetchedVenue,
     };
-    asyncAction();
   }, [eventId]);
 
   return (
     <ScrollView style={styles.root}>
-      {event && eventVenue && <EventDetails event={event} venue={eventVenue} />}
+      {data?.event && data?.venue && (
+        <EventDetails event={data.event} venue={data.venue} />
+      )}
     </ScrollView>
   );
 }

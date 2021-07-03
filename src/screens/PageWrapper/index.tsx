@@ -63,6 +63,7 @@ export function PageWrapper({
       <View style={styles.container}>
         <ImageBackground
           style={styles.image}
+          // TODO: Scrolling problem
           source={{
             uri: imageUri,
           }}>
