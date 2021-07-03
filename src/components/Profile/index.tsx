@@ -11,6 +11,7 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import { useAuthentication } from '../../hooks/use-authentication';
 import { Profile } from '../../models';
 
 const styles = StyleSheet.create({
@@ -58,6 +59,7 @@ interface ProfileContentProps {
 }
 
 export function ProfileContent({ profile }: ProfileContentProps) {
+  const { logout } = useAuthentication();
   return (
     <View style={styles.drawerContent}>
       <View style={styles.userInfoSection}>
@@ -110,6 +112,10 @@ export function ProfileContent({ profile }: ProfileContentProps) {
           </View>
         </TouchableRipple>
       </Drawer.Section>
+
+      <Button mode="contained" onPress={logout}>
+        <Paragraph>Logout</Paragraph>
+      </Button>
     </View>
   );
 }

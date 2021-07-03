@@ -63,7 +63,7 @@ module.exports = {
     'react-native/no-raw-text': [
         2,
         {
-          skip: ['Paragraph', 'Headline', 'Caption', 'Title', 'Button'],
+          skip: ['Paragraph', 'Headline', 'Subheading', 'Caption', 'Title', 'Button'],
         },
       ],
     'react-native/no-single-element-style-arrays': 2,

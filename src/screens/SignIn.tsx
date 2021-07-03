@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Paragraph, Title } from 'react-native-paper';
+import { Button, Paragraph, Subheading, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
@@ -15,8 +15,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: 'center',
   },
+  subheading: { marginTop: 8, textAlign: 'center' },
+  createProfileText: { textAlign: 'center' },
+  createProfileButton: { marginTop: 32 },
   error: { color: 'red', lineHeight: 28, fontSize: 20 },
-  form: { marginTop: 40 },
+  form: { marginTop: 16 },
 });
 
 export function SignInScreen() {
@@ -36,14 +39,26 @@ export function SignInScreen() {
   };
 
   return (
-    <PageWrapper scrollable header="back-navigation" style={styles.wrapper}>
-      <Title style={styles.title}>Sign In</Title>
+    <PageWrapper header="back-navigation" style={styles.wrapper}>
+      <Title style={styles.title}>Вход</Title>
+      <Subheading style={styles.subheading}>
+        Влез в профилът си, за да видиш най-добрите предложения, за твоите
+        интереси
+      </Subheading>
 
       {error && <Paragraph style={styles.error}>{error}</Paragraph>}
       <SignInForm
         style={styles.form}
         onSubmit={(data) => onLogin(data.email, data.password)}
       />
+      <Button
+        mode="text"
+        style={styles.createProfileButton}
+        onPress={() => navigate('SignUp')}>
+        <Paragraph style={styles.createProfileText}>
+          Създай нов профил
+        </Paragraph>
+      </Button>
     </PageWrapper>
   );
 }
