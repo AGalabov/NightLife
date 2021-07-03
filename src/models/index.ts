@@ -46,6 +46,7 @@ export interface Venue {
     saturday?: WorkingHours;
     sunday?: WorkingHours;
   };
+  rating: number;
   address: string;
   city: string;
 }

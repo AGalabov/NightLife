@@ -46,8 +46,18 @@ class Client {
     return Promise.resolve(data.venues);
   }
 
+  // TODO: Error handling
+  getVenueById(id: string): Promise<Venue | undefined> {
+    return Promise.resolve(data.venues.find((venue) => venue.venueId === id));
+  }
+
   getEvents(): Promise<Event[]> {
     return Promise.resolve(this.events);
+  }
+
+  // TODO: Error handling
+  getEventById(id: string): Promise<Event | undefined> {
+    return Promise.resolve(this.events.find((event) => event.eventId === id));
   }
 
   getProfile(id: string): Promise<Profile> {

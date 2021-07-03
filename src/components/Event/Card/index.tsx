@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Avatar, Button, Card } from 'react-native-paper';
 import { backgroundGray } from '../../../assets/colors';
+import { useCustomNavigation } from '../../../hooks/use-custom-navigation';
 import { Event } from '../../../models';
 
 interface EventCardProps {
@@ -27,8 +28,12 @@ const styles = StyleSheet.create({
 });
 
 export function EventCard({ event }: EventCardProps) {
+  const { navigate } = useCustomNavigation();
   return (
-    <Card elevation={5} style={styles.cardContainer}>
+    <Card
+      elevation={5}
+      style={styles.cardContainer}
+      onPress={() => navigate('EventDetails', { eventId: event.eventId })}>
       <Card.Cover
         source={{
           uri:
