@@ -5,12 +5,12 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { EventDetails } from '../components/Event/Details';
 import { client } from '../services';
 import { Event, Venue } from '../models';
-import { backgroundGray } from '../assets/colors';
+import { black } from '../assets/colors';
 import { useAsync } from '../hooks/use-async';
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: backgroundGray,
+    backgroundColor: black,
   },
 });
 

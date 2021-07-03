@@ -3,6 +3,7 @@ import { View, StyleSheet, Image } from 'react-native';
 
 import { Divider, Headline, Paragraph, Title } from 'react-native-paper';
 import { Event, Venue } from '../../../models';
+import { CommentSection } from '../../CommentSection';
 import { VenueCard } from '../../Venue/Card';
 
 interface EventDetailsProps {
@@ -46,6 +47,8 @@ export function EventDetails({ event, venue }: EventDetailsProps) {
 
         <Divider style={styles.divider} />
         <Headline>Коментари:</Headline>
+        <CommentSection comments={event.comments} />
+
         <Divider style={styles.divider} />
 
         {/* TODO: Optional - not by design */}
