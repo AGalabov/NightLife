@@ -10,6 +10,11 @@ const categoryValues = [
 export type MusicCategory = typeof categoryValues[number];
 export const categories = (categoryValues as unknown) as MusicCategory[];
 
+export interface Comment {
+  author: string;
+  comment: string;
+}
+
 export interface Event {
   eventId: string;
   title: string;
@@ -18,6 +23,7 @@ export interface Event {
   musicCategories: MusicCategory[];
   description: string;
   photos: {}[];
+  comments: Comment[];
   venueId: string;
   artist: string;
   artistId?: string;
@@ -46,6 +52,7 @@ export interface Venue {
     saturday?: WorkingHours;
     sunday?: WorkingHours;
   };
+  rating: number;
   address: string;
   city: string;
 }

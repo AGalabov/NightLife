@@ -16,8 +16,9 @@ export type Routes = typeof routes[number];
 export function useCustomNavigation() {
   const { navigate, ...rest } = useNavigation();
 
-  const customNavigate = (newTab: Routes) => {
-    navigate(newTab);
+  // TODO: Typize
+  const customNavigate = (newTab: Routes, params?: any) => {
+    navigate(newTab, params);
   };
 
   return { navigate: customNavigate, ...rest };
