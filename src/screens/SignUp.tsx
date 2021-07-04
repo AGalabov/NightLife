@@ -68,6 +68,7 @@ export function SignUpScreen() {
       />
       <Button
         mode="text"
+        uppercase={false}
         style={styles.loginButton}
         onPress={() => navigate('SignIn')}>
         <Paragraph style={styles.loginText}>

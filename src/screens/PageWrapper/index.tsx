@@ -39,14 +39,14 @@ const imageUri =
 interface PageWrapperProps {
   style?: StyleProp<ViewStyle>;
   header?: 'back-navigation' | ReactElement;
-  scrollable?: boolean;
+  scrollable: boolean;
   children: ReactNode;
 }
 
 export function PageWrapper({
   style,
   header,
-  scrollable = false,
+  scrollable,
   children,
 }: PageWrapperProps) {
   const { goBack } = useCustomNavigation();

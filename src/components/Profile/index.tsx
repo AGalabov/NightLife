@@ -1,56 +1,62 @@
-import React from 'react';
+import { compact } from 'lodash';
+import React, { useState } from 'react';
+
 import { View, StyleSheet } from 'react-native';
-import {
-  Avatar,
-  Button,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from 'react-native-paper';
+import { Avatar, Button, Title, Caption, Paragraph } from 'react-native-paper';
+import { FlatGrid } from 'react-native-super-grid';
+import { backgroundGray } from '../../assets/colors';
+import { useAsync } from '../../hooks/use-async';
 import { useAuthentication } from '../../hooks/use-authentication';
 import { Profile } from '../../models';
+import { client } from '../../services';
 
 const styles = StyleSheet.create({
-  drawerContent: {
-    flex: 1,
-  },
   userInfoSection: {
-    paddingLeft: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    marginTop: 20,
-    fontWeight: 'bold',
+    marginTop: 12,
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
   },
-  row: {
-    marginTop: 20,
+  menu: {
+    marginTop: 8,
+    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-  },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  paragraph: {
-    fontWeight: 'bold',
-    marginRight: 3,
-  },
-  drawerSection: {
-    marginTop: 15,
-  },
-  preference: {
-    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    backgroundColor: backgroundGray,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  favorites: {
+    maxHeight: 300,
+    padding: 8,
+    backgroundColor: backgroundGray,
+    alignSelf: 'center',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  noResults: {
+    backgroundColor: backgroundGray,
+    height: 300,
+    width: '100%',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  noResultText: {
+    textAlign: 'center',
+  },
+  favoritesContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoutButton: {
+    marginTop: 24,
   },
 });
 
@@ -58,64 +64,128 @@ interface ProfileContentProps {
   profile: Profile;
 }
 
+type DisplayItems = 'favorite-artists' | 'favorite-venues' | 'visited-events';
+
+interface FavoriteSectionProps {
+  uris: string[];
+  itemSize: number;
+}
+
+function FavoriteSection({ uris, itemSize }: FavoriteSectionProps) {
+  if (uris.length === 0) {
+    return (
+      <View style={styles.noResults}>
+        <Title style={styles.noResultText}>Няма резултати</Title>
+      </View>
+    );
+  }
+
+  return (
+    <FlatGrid
+      itemDimension={itemSize}
+      data={uris}
+      style={styles.favorites}
+      contentContainerStyle={styles.favoritesContent}
+      renderItem={({ item: uri }) => (
+        <Avatar.Image
+          source={{
+            uri,
+          }}
+          size={itemSize}
+        />
+      )}
+    />
+  );
+}
+
 export function ProfileContent({ profile }: ProfileContentProps) {
   const { logout } = useAuthentication();
+  const { data } = useAsync(async () => {
+    const venues = await Promise.all(
+      profile.favoriteVenues.map((venueId) => client.getVenueById(venueId)),
+    );
+    const artists = await Promise.all(
+      profile.favoriteArtists.map((artistId) => client.getArtistById(artistId)),
+    );
+
+    const events = await Promise.all(
+      profile.visitedEvents.map((eventId) => client.getEventById(eventId)),
+    );
+
+    // TODO: That's not great but will work for now
+    return {
+      favoriteVenues: compact(venues),
+      favoriteArtists: compact(artists),
+      visitedEvents: compact(events),
+    };
+  }, [profile]);
+
+  const [displayItems, setDisplayItems] = useState<DisplayItems>(
+    'visited-events',
+  );
+
   return (
-    <View style={styles.drawerContent}>
+    <>
       <View style={styles.userInfoSection}>
         <Avatar.Image
           source={{
             uri:
               'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
           }}
-          size={50}
+          size={100}
         />
         <Title style={styles.title}>
           {profile.firstName} {profile.lastName}
         </Title>
-        <Caption style={styles.caption}>@trensik</Caption>
-        <View style={styles.row}>
-          <View style={styles.section}>
-            <Paragraph style={[styles.paragraph, styles.caption]}>
-              202
-            </Paragraph>
-            <Caption style={styles.caption}>Following</Caption>
-          </View>
-          <View style={styles.section}>
-            <Paragraph style={[styles.paragraph, styles.caption]}>
-              159
-            </Paragraph>
-            <Caption style={styles.caption}>Followers</Caption>
-          </View>
-        </View>
+        <Caption style={styles.caption}>{profile.email}</Caption>
       </View>
-      <Drawer.Section style={styles.drawerSection}>
-        <Button icon="account-outline">Profile</Button>
-        <Button icon="tune">Preferences</Button>
-        <Button icon="bookmark-outline">Bookmarks</Button>
-      </Drawer.Section>
-      <Drawer.Section title="Preferences">
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.preference}>
-            <Text>Dark Theme</Text>
-            <View pointerEvents="none">
-              <Switch value={false} />
-            </View>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.preference}>
-            <Text>RTL</Text>
-            <View pointerEvents="none">
-              <Switch value={false} />
-            </View>
-          </View>
-        </TouchableRipple>
-      </Drawer.Section>
+      <View style={styles.menu}>
+        <Button
+          disabled={displayItems === 'visited-events'}
+          uppercase={false}
+          onPress={() => setDisplayItems('visited-events')}>
+          Последни
+        </Button>
+        <Button
+          disabled={displayItems === 'favorite-artists'}
+          onPress={() => setDisplayItems('favorite-artists')}
+          uppercase={false}>
+          Изпълнители
+        </Button>
+        <Button
+          disabled={displayItems === 'favorite-venues'}
+          onPress={() => setDisplayItems('favorite-venues')}
+          uppercase={false}>
+          Заведения
+        </Button>
+      </View>
 
-      <Button mode="contained" onPress={logout}>
+      {data && (
+        <>
+          {displayItems === 'visited-events' && data.visitedEvents && (
+            <FavoriteSection
+              itemSize={90}
+              uris={data.visitedEvents.map(({ coverPhoto }) => coverPhoto)}
+            />
+          )}
+          {displayItems === 'favorite-artists' && data.favoriteArtists && (
+            <FavoriteSection
+              itemSize={90}
+              uris={data.favoriteArtists.map(({ avatarUri }) => avatarUri)}
+            />
+          )}
+          {displayItems === 'favorite-venues' && data.favoriteVenues && (
+            <FavoriteSection
+              itemSize={90}
+              uris={data.favoriteVenues.map(({ logoUri }) => logoUri)}
+            />
+          )}
+        </>
+      )}
+
+      <Button mode="contained" style={styles.logoutButton} onPress={logout}>
         <Paragraph>Logout</Paragraph>
       </Button>
-    </View>
+    </>
   );
 }

@@ -22,11 +22,20 @@
       ]
     }
   ],
+  "artists": [
+    {
+      "artistId": "1",
+      "firstName": "Константин",
+      "lastName": "Славчев",
+      "avatarUri": "https://zavedenia.com/zimages/sofia/big/2353/23533d3098b5a4755e2e0dde5205c623f936.jpg"
+    }
+  ],
   "events": [
     {
       "eventId": "1",
       "title": "Konstantin v Plazza",
       "date": "25-04-2021",
+      "coverPhoto": "https://zavedenia.com/zimages/sofia/big/2353/23533d3098b5a4755e2e0dde5205c623f936.jpg",
       "musicCategories": [
         "pop-folk"
       ],
@@ -44,6 +53,7 @@
         }
       ],
       "venueId": "1",
+      "venueLogoUri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU",
       "artist": "Konstantin"
     }
   ],
@@ -67,6 +77,7 @@
           "end": "06:00"
         }
       },
+      "logoUri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU",
       "address": "Студентски град",
       "city": "София",
       "rating": 4.6

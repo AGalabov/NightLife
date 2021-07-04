@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { shuffle, uniqueId } from 'lodash';
-import { Venue, Event, Profile, MusicCategory } from '../models';
+import { Venue, Event, Profile, MusicCategory, Artist } from '../models';
 import data from './data.json';
 
 function getRandomPrice() {
@@ -68,6 +68,12 @@ class Client {
     }
 
     return Promise.resolve(result as Profile);
+  }
+
+  getArtistById(id: string): Promise<Artist | undefined> {
+    return Promise.resolve(
+      data.artists.find((artist) => artist.artistId === id),
+    );
   }
 
   login(email: string, password: string): Promise<Profile> {
