@@ -1,23 +1,23 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Paragraph } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { EventForm } from '../components/Event/Form';
 import { PageWrapper } from './PageWrapper';
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'red',
+    // TODO: Why do we need this?
+    marginBottom: 85,
   },
 });
 
 export function AddEventScreen() {
   return (
-    <PageWrapper scrollable>
-      <View style={styles.root}>
-        <Paragraph>Add Event Screen!</Paragraph>
-      </View>
+    <PageWrapper scrollable style={styles.root}>
+      <EventForm
+        onSubmit={() => {
+          return Promise.resolve();
+        }}
+      />
     </PageWrapper>
   );
 }

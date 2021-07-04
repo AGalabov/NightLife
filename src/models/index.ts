@@ -27,7 +27,6 @@ export interface Event {
   comments: Comment[];
   venueId: string;
   venueLogoUri: string;
-  artist: string;
   artistId?: string;
 }
 

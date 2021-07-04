@@ -23,8 +23,11 @@ type TextInputProps = Omit<
 
 const styles = StyleSheet.create({
   input: {
-    height: 50,
     marginTop: 8,
+    borderRadius: 8,
+  },
+  height: {
+    height: 50,
   },
   label: { color: 'white' },
   error: { color: 'red' },
@@ -37,6 +40,7 @@ export function TextInput({
   placeholder,
   onChange,
   boxStyle,
+  multiline,
   ...rest
 }: TextInputProps) {
   return (
@@ -44,8 +48,13 @@ export function TextInput({
       <Paragraph style={styles.label}>{label}</Paragraph>
       <PaperTextInput
         placeholder={placeholder}
-        style={[styles.input, error ? styles.errorContainer : undefined]}
+        style={[
+          styles.input,
+          !multiline ? styles.height : undefined,
+          error ? styles.errorContainer : undefined,
+        ]}
         onChangeText={onChange}
+        multiline={multiline}
         {...rest}
       />
       {error && <Caption style={styles.error}>{error}</Caption>}
