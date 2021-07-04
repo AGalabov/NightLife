@@ -5,6 +5,43 @@ import { ProfileScreen } from '../../Profile';
 import { AddEventScreen } from '../../AddEvent';
 import { HomeScreen } from '../../Home';
 import { activeBlue, black } from '../../../assets/colors';
+import { SignInScreen } from '../../SignIn';
+
+const Guest = createMaterialBottomTabNavigator();
+
+export function GuestTabNavigation() {
+  return (
+    <Guest.Navigator
+      initialRouteName="Home"
+      inactiveColor="white"
+      activeColor={activeBlue}
+      barStyle={{ backgroundColor: black }}
+      shifting
+      sceneAnimationEnabled={false}>
+      <Guest.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: 'magnify',
+        }}
+      />
+      <Guest.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: 'home',
+        }}
+      />
+      <Guest.Screen
+        name="Profile"
+        component={SignInScreen}
+        options={{
+          tabBarIcon: 'account',
+        }}
+      />
+    </Guest.Navigator>
+  );
+}
 
 const User = createMaterialBottomTabNavigator();
 

@@ -10,15 +10,15 @@ interface EventCardProps {
 }
 
 type AvatarImageProps = {
+  uri: string;
   size?: number;
 };
 
-const LeftContent = (props: AvatarImageProps) => (
+const LeftContent = ({ uri, size }: AvatarImageProps) => (
   <Avatar.Image
-    {...props}
+    size={size}
     source={{
-      uri:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU',
+      uri,
     }}
   />
 );
@@ -36,14 +36,13 @@ export function EventCard({ event }: EventCardProps) {
       onPress={() => navigate('EventDetails', { eventId: event.eventId })}>
       <Card.Cover
         source={{
-          uri:
-            'https://zavedenia.com/zimages/sofia/big/2353/23533d3098b5a4755e2e0dde5205c623f936.jpg',
+          uri: event.coverPhoto,
         }}
       />
       <Card.Title
         title={event.title}
         subtitle={event.date}
-        left={LeftContent}
+        left={(props) => <LeftContent uri={event.venueLogoUri} {...props} />}
       />
       <Card.Actions>
         <Button>Cancel</Button>

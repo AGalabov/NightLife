@@ -9,15 +9,15 @@ interface VenueCardProps {
 }
 
 type AvatarImageProps = {
+  uri: string;
   size?: number;
 };
 
-const LeftContent = (props: AvatarImageProps) => (
+const LeftContent = ({ uri, size }: AvatarImageProps) => (
   <Avatar.Image
-    {...props}
+    size={size}
     source={{
-      uri:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU',
+      uri,
     }}
   />
 );
@@ -58,7 +58,7 @@ export function VenueCard({ venue }: VenueCardProps) {
         title={<VenueTitle venue={venue} />}
         titleNumberOfLines={2}
         subtitle={<VenueSubtitle venue={venue} />}
-        left={LeftContent}
+        left={(props) => <LeftContent uri={venue.logoUri} {...props} />}
         right={() => <RightContent venue={venue} />}
       />
     </Card>

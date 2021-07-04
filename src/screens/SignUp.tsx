@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Paragraph, Title } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { Button, Paragraph, Subheading, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
@@ -8,15 +8,17 @@ import { SignUpForm } from '../components/SignUp/Form';
 import { Profile } from '../models';
 
 const styles = StyleSheet.create({
-  wrapper: { marginTop: 40 },
   title: {
     color: 'white',
     lineHeight: 40,
     fontSize: 32,
     textAlign: 'center',
   },
+  subheading: { marginTop: 8, textAlign: 'center' },
+  loginText: { textAlign: 'center' },
+  loginButton: { marginTop: 32 },
   error: { color: 'red', lineHeight: 28, fontSize: 20 },
-  form: { marginTop: 40 },
+  form: { marginTop: 16 },
 });
 
 export function SignUpScreen() {
@@ -52,17 +54,27 @@ export function SignUpScreen() {
 
   return (
     <PageWrapper scrollable={false} header="back-navigation">
-      <View style={styles.wrapper}>
-        <Title style={styles.title}>Sign Up</Title>
+      <Title style={styles.title}>Регистрация</Title>
 
-        {error && <Paragraph style={styles.error}>{error}</Paragraph>}
-        <SignUpForm
-          style={styles.form}
-          onSubmit={(data) =>
-            onSignUp(data.email, data.password, data.fullName)
-          }
-        />
-      </View>
+      <Subheading style={styles.subheading}>
+        Създай собствен акаунт, за да достъпиш цялата фунцкионалност на
+        приложението
+      </Subheading>
+
+      {error && <Paragraph style={styles.error}>{error}</Paragraph>}
+      <SignUpForm
+        style={styles.form}
+        onSubmit={(data) => onSignUp(data.email, data.password, data.fullName)}
+      />
+      <Button
+        mode="text"
+        uppercase={false}
+        style={styles.loginButton}
+        onPress={() => navigate('SignIn')}>
+        <Paragraph style={styles.loginText}>
+          Влез в съществуващ профил
+        </Paragraph>
+      </Button>
     </PageWrapper>
   );
 }

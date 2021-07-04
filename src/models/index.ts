@@ -19,12 +19,14 @@ export interface Event {
   eventId: string;
   title: string;
   date: string;
+  coverPhoto: string;
   price: number;
   musicCategories: MusicCategory[];
   description: string;
   photos: {}[];
   comments: Comment[];
   venueId: string;
+  venueLogoUri: string;
   artist: string;
   artistId?: string;
 }
@@ -36,6 +38,7 @@ interface WorkingHours {
 
 export interface Venue {
   venueId: string;
+  logoUri: string;
   coordinates: {
     lat: number;
     lng: number;
@@ -66,4 +69,11 @@ export interface Profile {
   favoriteVenues: string[];
   favoriteArtists: string[];
   visitedEvents: string[];
+}
+
+export interface Artist {
+  artistId: string;
+  firstName: string;
+  lastName: string;
+  avatarUri: string;
 }

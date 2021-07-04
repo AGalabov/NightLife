@@ -7,7 +7,6 @@ export function useAuthentication() {
   return {
     profile: user,
     isGuest: !user,
-    isRegistered: user?.type === 'regular',
     isAdmin: user?.type === 'admin',
     ...rest,
   };
