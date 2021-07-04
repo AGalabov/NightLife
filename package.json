@@ -12,11 +12,13 @@
     "clean": "watchman watch-del-all && cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-navigation/bottom-tabs": "5.2.5",
     "@react-navigation/core": "^5.15.3",
     "@react-navigation/material-bottom-tabs": "^5.3.14",
     "@react-navigation/native": "5.8.9",
     "@react-navigation/stack": "~5.2.14",
+    "dayjs": "^1.10.5",
     "email-validator": "^2.0.4",
     "lodash": "^4.17.21",
     "react": "16.13.1",
