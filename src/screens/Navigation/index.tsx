@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
-  AdminTabNavigation,
+  VenueTabNavigation,
   GuestTabNavigation,
   UserTabNavigation,
 } from './TabNavigation';
@@ -19,13 +19,13 @@ function getComponent(isGuest: boolean, isAdmin: boolean) {
   if (!isAdmin) {
     return UserTabNavigation;
   }
-  return AdminTabNavigation;
+  return VenueTabNavigation;
 }
 
 export function RootNavigation() {
-  const { isAdmin, isGuest } = useAuthentication();
+  const { isVenue, isGuest } = useAuthentication();
 
-  const TabNavigatorComponent = getComponent(isGuest, isAdmin);
+  const TabNavigatorComponent = getComponent(isGuest, isVenue);
 
   // TODO: Make sure logout clears history properly
   return (

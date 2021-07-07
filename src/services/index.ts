@@ -1,6 +1,15 @@
 /* eslint-disable class-methods-use-this */
 import { shuffle, uniqueId } from 'lodash';
-import { Venue, Event, Profile, MusicCategory, Artist } from '../models';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {
+  Venue,
+  Event,
+  Profile,
+  MusicCategory,
+  Artist,
+  ProfileType,
+} from '../models';
 import data from './data.json';
 
 function getRandomPrice() {
@@ -33,6 +42,24 @@ function generateEvents() {
   ]);
 }
 
+export interface SignUpData {
+  fullName: string;
+  email: string;
+  password: string;
+  type: ProfileType;
+}
+
+export interface AddEventFormValues {
+  title: string;
+  date: string;
+  musicCategories: MusicCategory[];
+  price: number;
+  description: string;
+  coverPhoto: string;
+  // TODO: This is probably how it should be
+  artistId?: string;
+}
+
 class Client {
   private events: Event[];
 
@@ -46,11 +73,6 @@ class Client {
     return Promise.resolve(data.venues);
   }
 
-  // TODO: Error handling
-  getVenueById(id: string): Promise<Venue | undefined> {
-    return Promise.resolve(data.venues.find((venue) => venue.venueId === id));
-  }
-
   getEvents(): Promise<Event[]> {
     return Promise.resolve(this.events);
   }
@@ -60,14 +82,32 @@ class Client {
     return Promise.resolve(this.events.find((event) => event.eventId === id));
   }
 
-  getProfile(id: string): Promise<Profile> {
-    const result = data.profiles.find((profile) => profile.userId === id);
+  async getProfile(id: string): Promise<Profile> {
+    const profileDocument = await firestore()
+      .collection<Profile>('users')
+      .doc(id)
+      .get();
+    const profile = profileDocument.data();
 
-    if (!result) {
+    if (!profileDocument.exists || !profile) {
       throw new Error('Oops something went wrong');
     }
 
-    return Promise.resolve(result as Profile);
+    return profile;
+  }
+
+  async getVenueById(id: string): Promise<Venue> {
+    const profileDocument = await firestore()
+      .collection<Venue>('venues')
+      .doc(id)
+      .get();
+    const venue = profileDocument.data();
+
+    if (!profileDocument.exists || !venue) {
+      throw new Error('Oops something went wrong');
+    }
+
+    return venue;
   }
 
   getArtistById(id: string): Promise<Artist | undefined> {
@@ -76,15 +116,61 @@ class Client {
     );
   }
 
-  login(email: string, password: string): Promise<Profile> {
-    const userData = data.users.find(
-      (user) => user.email === email && user.password === password,
-    );
-    if (!userData) {
-      throw new Error('Invalid user data');
-    }
+  async login(email: string, password: string): Promise<{ userId: string }> {
+    const result = await auth().signInWithEmailAndPassword(email, password);
+    const userId = result.user.uid;
 
-    return this.getProfile(userData.userId);
+    return { userId };
+  }
+
+  async signUp({
+    email,
+    password,
+    fullName,
+    type,
+  }: SignUpData): Promise<{ userId: string }> {
+    const result = await auth().createUserWithEmailAndPassword(email, password);
+    const userId = result.user.uid;
+
+    const [firstName, lastName] = fullName.trim().split(' ') as [
+      string,
+      string,
+    ];
+
+    const profile: Profile = {
+      email,
+      firstName,
+      lastName,
+      type: type ?? 'regular',
+      userId,
+      favoriteArtists: [],
+      favoriteVenues: [],
+      visitedEvents: [],
+    };
+
+    await firestore().collection('users').doc(userId).set(profile);
+    return { userId };
+  }
+
+  async logout(): Promise<void> {
+    await auth().signOut();
+  }
+
+  async testAdd(addEventData: AddEventFormValues) {
+    console.log('Triggered request');
+    const requestData = {
+      ...addEventData,
+      artistId: '2',
+      comments: [],
+      photos: [],
+      venueId: '1', // TODO: Get from current venue
+      venueLogoUri:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU',
+    };
+
+    const result = await firestore().collection('test').add(requestData);
+
+    console.log(result);
   }
 }
 

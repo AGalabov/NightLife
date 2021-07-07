@@ -30,38 +30,24 @@ export interface Event {
   artistId?: string;
 }
 
-interface WorkingHours {
-  start: string;
-  end: string;
-}
-
 export interface Venue {
-  venueId: string;
   logoUri: string;
   coordinates: {
-    lat: number;
-    lng: number;
+    Latitude: number;
+    Longitude: number;
   };
   name: string;
   phone: string;
-  manager: string;
-  workingHours: {
-    monday?: WorkingHours;
-    tuesday?: WorkingHours;
-    wednesday?: WorkingHours;
-    thursday?: WorkingHours;
-    friday?: WorkingHours;
-    saturday?: WorkingHours;
-    sunday?: WorkingHours;
-  };
   rating: number;
   address: string;
   city: string;
 }
 
+export type ProfileType = 'regular' | 'venue';
+
 export interface Profile {
   email: string;
-  type: 'regular' | 'admin';
+  type: ProfileType;
   userId: string;
   firstName: string;
   lastName: string;

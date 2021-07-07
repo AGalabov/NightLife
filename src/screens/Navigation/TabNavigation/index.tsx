@@ -79,38 +79,38 @@ export function UserTabNavigation() {
   );
 }
 
-const Admin = createMaterialBottomTabNavigator();
+const Venue = createMaterialBottomTabNavigator();
 
-export const AdminTabNavigation = () => {
+export const VenueTabNavigation = () => {
   return (
-    <Admin.Navigator
+    <Venue.Navigator
       initialRouteName="Profile"
       shifting
       inactiveColor="white"
       activeColor={activeBlue}
       barStyle={{ backgroundColor: black }}
       sceneAnimationEnabled={false}>
-      <Admin.Screen
+      <Venue.Screen
         name="Search"
         component={SearchScreen}
         options={{
           tabBarIcon: 'magnify',
         }}
       />
-      <Admin.Screen
+      <Venue.Screen
         name="AddEvent"
         component={AddEventScreen}
         options={{
           tabBarIcon: 'plus-box',
         }}
       />
-      <Admin.Screen
+      <Venue.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: 'account',
         }}
       />
-    </Admin.Navigator>
+    </Venue.Navigator>
   );
 };

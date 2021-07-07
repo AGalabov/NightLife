@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProfileContent } from '../components/Profile';
+import { VenuePage } from '../components/Venue/Page';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 
@@ -8,7 +9,10 @@ export function ProfileScreen() {
 
   return (
     <PageWrapper scrollable={false}>
-      {profile && <ProfileContent profile={profile} />}
+      {profile?.type === 'regular' && (
+        <ProfileContent profile={profile.profile} />
+      )}
+      {profile?.type === 'venue' && <VenuePage venue={profile.venue} />}
     </PageWrapper>
   );
 }
