@@ -18,8 +18,6 @@ export function useAuthentication() {
 
     const profile = await client.getProfile(userId);
 
-    console.log({ user: profile });
-
     if (profile.type === 'venue') {
       const venue = await client.getVenueById(userId);
       return {
@@ -36,6 +34,7 @@ export function useAuthentication() {
 
   return {
     profile: data,
+    userId,
     isGuest: !userId,
     isVenue: data?.type === 'venue',
     ...rest,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
-import { MusicCategory } from '../../../models';
+import { AddEventFormValues } from '../../../services';
 import { DatePicker } from '../../Form/DatePicker';
 import { NumberInput } from '../../Form/NumberInput';
 import { TextInput } from '../../Form/TextInput';
@@ -17,18 +17,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-type AddEventFormValues = {
-  title: string;
-  date: string;
-  type: MusicCategory[];
-  price: number;
-  description: string;
-  coverPhoto: string;
-  // TODO: This is probably how it should be
-  artistId?: string;
-};
-
 interface EventFormProps {
   onSubmit: (data: AddEventFormValues) => Promise<void>;
   style?: ViewStyle;
@@ -45,12 +33,9 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
     defaultValues: {
       title: '',
       date: '',
-      type: [],
+      musicCategories: [],
       price: 0,
       description: '',
-      coverPhoto: '',
-      // TODO: This is probably how it should be
-      artistId: undefined,
     },
   });
 
@@ -61,7 +46,7 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
     register('date', {
       required: 'Датата е задължителна',
     });
-    register('type');
+    register('musicCategories');
     register('price');
     register('artistId');
     register('coverPhoto');
@@ -94,8 +79,8 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
         label="Тип на събитието"
         placeholder="Изберете тип"
         boxStyle={styles.input}
-        error={errors.type?.message}
-        onChange={(value) => setValue('type', [value])}
+        error={errors.musicCategories?.message}
+        onChange={(value) => setValue('musicCategories', [value])}
       />
 
       <NumberInput

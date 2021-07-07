@@ -29,8 +29,7 @@ export function EventDetails({ event, venue }: EventDetailsProps) {
     <>
       <Image
         source={{
-          uri:
-            'https://zavedenia.com/zimages/sofia/big/2353/23533d3098b5a4755e2e0dde5205c623f936.jpg',
+          uri: event.coverPhoto,
           height: 400,
         }}
       />

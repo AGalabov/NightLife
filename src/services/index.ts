@@ -60,6 +60,11 @@ export interface AddEventFormValues {
   artistId?: string;
 }
 
+export interface AddEventData extends AddEventFormValues {
+  venueId: string;
+  venueLogoUri: string;
+}
+
 class Client {
   private events: Event[];
 
@@ -69,17 +74,30 @@ class Client {
     this.events = generateEvents();
   }
 
-  getVenues(): Promise<Venue[]> {
-    return Promise.resolve(data.venues);
-  }
-
-  getEvents(): Promise<Event[]> {
-    return Promise.resolve(this.events);
+  async getEvents(): Promise<Event[]> {
+    const allEvents = await firestore().collection<Event>('events').get();
+    return allEvents.docs.map((doc) => ({
+      ...doc.data(),
+      eventId: doc.id,
+    }));
   }
 
   // TODO: Error handling
-  getEventById(id: string): Promise<Event | undefined> {
-    return Promise.resolve(this.events.find((event) => event.eventId === id));
+  async getEventById(id: string): Promise<Event | undefined> {
+    const event = await firestore().collection<Event>('events').doc(id).get();
+    return event.data();
+  }
+
+  async addEvent(addEventData: AddEventData) {
+    const requestData = {
+      ...addEventData,
+      // TODO: temp
+      artistId: '2',
+      comments: [],
+      photos: [],
+    };
+
+    await firestore().collection('events').add(requestData);
   }
 
   async getProfile(id: string): Promise<Profile> {
@@ -141,7 +159,7 @@ class Client {
       email,
       firstName,
       lastName,
-      type: type ?? 'regular',
+      type,
       userId,
       favoriteArtists: [],
       favoriteVenues: [],
@@ -154,23 +172,6 @@ class Client {
 
   async logout(): Promise<void> {
     await auth().signOut();
-  }
-
-  async testAdd(addEventData: AddEventFormValues) {
-    console.log('Triggered request');
-    const requestData = {
-      ...addEventData,
-      artistId: '2',
-      comments: [],
-      photos: [],
-      venueId: '1', // TODO: Get from current venue
-      venueLogoUri:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmPg56VdVIp7iaYiuUWN-rwesnxdZtd2raLA&usqp=CAU',
-    };
-
-    const result = await firestore().collection('test').add(requestData);
-
-    console.log(result);
   }
 }
 
