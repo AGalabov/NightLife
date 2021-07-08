@@ -4,6 +4,7 @@ const categoryValues = [
   'reggaeton',
   'pop-folk',
   'pop',
+  'jazz',
   'county',
   'other',
 ] as const;

@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-import { shuffle, uniqueId } from 'lodash';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {
@@ -10,37 +9,37 @@ import {
   Artist,
   ProfileType,
 } from '../models';
-import data from './data.json';
+// import data from './data.json';
 
-function getRandomPrice() {
-  return Math.floor(Math.random() * 20);
-}
+// function getRandomPrice() {
+//   return Math.floor(Math.random() * 20);
+// }
 
-function generateEventsFor(category: MusicCategory, count: number): Event[] {
-  return Array.from(Array(count).keys()).map(() => {
-    const id = uniqueId();
-    const eventTemplate = data.events[0] as Event;
-    return {
-      ...eventTemplate,
-      eventId: id,
-      musicCategories: [category],
-      title: `${category} event - ${id}`,
-      price: getRandomPrice(),
-    };
-  });
-}
+// function generateEventsFor(category: MusicCategory, count: number): Event[] {
+//   return Array.from(Array(count).keys()).map(() => {
+//     const id = uniqueId();
+//     const eventTemplate = data.events[0] as Event;
+//     return {
+//       ...eventTemplate,
+//       eventId: id,
+//       musicCategories: [category],
+//       title: `${category} event - ${id}`,
+//       price: getRandomPrice(),
+//     };
+//   });
+// }
 
-function generateEvents() {
-  return shuffle([
-    ...generateEventsFor('pop-folk', 5),
-    ...generateEventsFor('rock', 3),
-    ...generateEventsFor('pop', 4),
-    ...generateEventsFor('county', 1),
-    ...generateEventsFor('other', 6),
-    ...generateEventsFor('reggaeton', 2),
-    ...generateEventsFor('rap', 2),
-  ]);
-}
+// function generateEvents() {
+//   return shuffle([
+//     ...generateEventsFor('pop-folk', 5),
+//     ...generateEventsFor('rock', 3),
+//     ...generateEventsFor('pop', 4),
+//     ...generateEventsFor('county', 1),
+//     ...generateEventsFor('other', 6),
+//     ...generateEventsFor('reggaeton', 2),
+//     ...generateEventsFor('rap', 2),
+//   ]);
+// }
 
 export interface SignUpData {
   fullName: string;
@@ -66,14 +65,6 @@ export interface AddEventData extends AddEventFormValues {
 }
 
 class Client {
-  private events: Event[];
-
-  constructor() {
-    // Generates some event mock data that we want
-    // to keep as persistent during the browsing
-    this.events = generateEvents();
-  }
-
   async getEvents(): Promise<Event[]> {
     const allEvents = await firestore().collection<Event>('events').get();
     return allEvents.docs.map((doc) => ({
@@ -129,10 +120,9 @@ class Client {
     return venue;
   }
 
-  getArtistById(id: string): Promise<Artist | undefined> {
-    return Promise.resolve(
-      data.artists.find((artist) => artist.artistId === id),
-    );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getArtistById(_id: string): Promise<Artist | undefined> {
+    return Promise.resolve(undefined);
   }
 
   async login(email: string, password: string): Promise<{ userId: string }> {
@@ -174,6 +164,20 @@ class Client {
   async logout(): Promise<void> {
     await auth().signOut();
   }
+
+  // async test(): Promise<void> {
+  //   const { events } = data;
+  //   Promise.all(
+  //     events.map((event) => {
+  //       const requestData = {
+  //         ...event,
+  //         artistId: '2',
+  //       };
+
+  //       return firestore().collection('events').add(requestData);
+  //     }),
+  //   );
+  // }
 }
 
 export const client = new Client();
