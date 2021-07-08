@@ -38,7 +38,7 @@ export function SignUpScreen() {
   };
 
   return (
-    <PageWrapper scrollable={false} header="back-navigation">
+    <PageWrapper scrollable header="back-navigation">
       <Title style={styles.title}>Регистрация</Title>
 
       <Subheading style={styles.subheading}>

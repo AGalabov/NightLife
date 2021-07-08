@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
 import {
-  Dimensions,
   ImageBackground,
   ScrollView,
   StyleProp,
@@ -21,8 +20,7 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    height: '100%',
     resizeMode: 'stretch',
     justifyContent: 'center',
   },
@@ -55,7 +53,7 @@ export function PageWrapper({
 
   const contentStyle = hasCustomHeader
     ? { ...styles.content, marginTop: 0 }
-    : styles.content;
+    : { ...styles.content };
 
   return (
     <>

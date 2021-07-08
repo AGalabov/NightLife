@@ -38,10 +38,7 @@ export function SignInScreen() {
   };
 
   return (
-    <PageWrapper
-      header="back-navigation"
-      style={styles.wrapper}
-      scrollable={false}>
+    <PageWrapper header="back-navigation" style={styles.wrapper} scrollable>
       <Title style={styles.title}>Вход</Title>
       <Subheading style={styles.subheading}>
         Влез в профилът си, за да видиш най-добрите предложения, за твоите

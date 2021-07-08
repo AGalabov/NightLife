@@ -9,13 +9,15 @@ import { SignInScreen } from '../../SignIn';
 
 const Guest = createMaterialBottomTabNavigator();
 
+export const TAB_NAVIGATOR_HEIGHT = 55;
+
 export function GuestTabNavigation() {
   return (
     <Guest.Navigator
       initialRouteName="Home"
       inactiveColor="white"
       activeColor={activeBlue}
-      barStyle={{ backgroundColor: black }}
+      barStyle={{ backgroundColor: black, height: TAB_NAVIGATOR_HEIGHT }}
       shifting
       sceneAnimationEnabled={false}>
       <Guest.Screen
