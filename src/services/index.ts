@@ -97,7 +97,8 @@ class Client {
       photos: [],
     };
 
-    await firestore().collection('events').add(requestData);
+    const res = await firestore().collection('events').add(requestData);
+    return { eventId: res.id };
   }
 
   async getProfile(id: string): Promise<Profile> {
