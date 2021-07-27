@@ -65,7 +65,8 @@ class SearchService {
     },
   ) {
     return events.filter((event) => {
-      const matchesQuery = !query || event.title.toLowerCase().includes(query);
+      const matchesQuery =
+        !query || event.title.toLowerCase().includes(query.toLowerCase());
       const matchesCategory =
         !categories ||
         categories.length === 0 ||
