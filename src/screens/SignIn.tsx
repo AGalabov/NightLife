@@ -39,10 +39,10 @@ export function SignInScreen() {
 
   return (
     <PageWrapper header="back-navigation" style={styles.wrapper} scrollable>
-      <Title style={styles.title}>Вход</Title>
+      <Title style={styles.title}>Login</Title>
       <Subheading style={styles.subheading}>
-        Влез в профилът си, за да видиш най-добрите предложения, за твоите
-        интереси
+        Sign in into your profile to check the best matching events for your
+        interests
       </Subheading>
 
       {error && <Paragraph style={styles.error}>{error}</Paragraph>}
@@ -56,7 +56,7 @@ export function SignInScreen() {
         style={styles.createProfileButton}
         onPress={() => navigate('SignUp')}>
         <Paragraph style={styles.createProfileText}>
-          Създай нов профил
+          Don&apos;t have a profile? Create one instead.
         </Paragraph>
       </Button>
     </PageWrapper>

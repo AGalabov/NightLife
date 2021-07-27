@@ -144,19 +144,19 @@ export function ProfileContent({ profile }: ProfileContentProps) {
           disabled={displayItems === 'visited-events'}
           uppercase={false}
           onPress={() => setDisplayItems('visited-events')}>
-          Последни
+          Last visited
         </Button>
         <Button
           disabled={displayItems === 'favorite-artists'}
           onPress={() => setDisplayItems('favorite-artists')}
           uppercase={false}>
-          Изпълнители
+          My Artists
         </Button>
         <Button
           disabled={displayItems === 'favorite-venues'}
           onPress={() => setDisplayItems('favorite-venues')}
           uppercase={false}>
-          Заведения
+          My Venues
         </Button>
       </View>
 
