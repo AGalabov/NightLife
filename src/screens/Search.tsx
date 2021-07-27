@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Portal } from 'react-native-paper';
 import { EventList } from '../components/Event/List';
 import { SearchHeader } from '../components/Search/Header';
 import { RefinementPopup } from '../components/Search/RefinementPopup';
+import { useAsync } from '../hooks/use-async';
+import { useAsyncAction } from '../hooks/use-async-action';
 import { Event } from '../models';
 import { search, SearchParams } from '../services/search-service';
 import { PageWrapper } from './PageWrapper';
@@ -23,14 +25,17 @@ export function SearchScreen() {
   // - search by query
   // - filter + sort from the refinement popup
   // => they should probably be unified (common state would be required)
-  const loadEvents = useCallback(async (params: SearchParams = {}) => {
-    const fetchedEvents = await search.search(params);
-    setEvents(fetchedEvents);
-  }, []);
+  const { perform: loadEvents } = useAsyncAction(
+    async (params: SearchParams = {}) => {
+      const fetchedEvents = await search.search(params);
+      setEvents(fetchedEvents);
+    },
+    [],
+  );
 
   // Used for the initial load of all events - an alternative could be to
   // showcase the search options with no initial results
-  useEffect(() => {
+  useAsync(async () => {
     loadEvents();
   }, [loadEvents]);
 

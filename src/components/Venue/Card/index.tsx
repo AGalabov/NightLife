@@ -45,13 +45,13 @@ export function VenueCard({ venue }: VenueCardProps) {
     <Card
       elevation={5}
       // TODO: Venue specific page
-      // onPress={() => navigate('EventDetails', { eventId: event.eventId })}
+      // onPress={() => navigate('VenueDetails', { venue })}
     >
       <Card.Cover
         source={{
           // TODO: Centered pinpoint
           uri:
-            'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.xamboy.com%2F2019%2F06%2F05%2Fsetting-pickup-location-marker-using-google-maps-in-xamarin-forms%2F&psig=AOvVaw2oKmC0yRjtiA2FWX-9fYSN&ust=1625334223599000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCNDd6b_4xPECFQAAAAAdAAAAABAF',
+            'https://i.insider.com/5c954296dc67671dc8346930?width=1136&format=jpeg',
         }}
       />
       <Card.Title

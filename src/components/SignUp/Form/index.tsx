@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
+import { ProfileType } from '../../../models';
+import { SignUpData } from '../../../services';
 import {
   isValidEmail,
   isValidFullName,
   isValidPassword,
 } from '../../../utils/validators';
+import { Checkbox } from '../../Checkbox';
 import { TextInput } from '../../Form/TextInput';
 
 const styles = StyleSheet.create({
@@ -20,29 +24,21 @@ const styles = StyleSheet.create({
   },
 });
 
-type SignUpFormValues = {
-  fullName: string;
-  email: string;
-  password: string;
-};
-
-interface SignInFormProps {
-  onSubmit: (data: SignUpFormValues) => Promise<void>;
+interface SignUpFormProps {
+  onSubmit: (data: SignUpData) => Promise<void>;
   style?: ViewStyle;
 }
 
-export function SignUpForm({ onSubmit, style }: SignInFormProps) {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    errors,
-  } = useForm<SignUpFormValues>({
+export function SignUpForm({ onSubmit, style }: SignUpFormProps) {
+  const [profileType, setProfileType] = useState<ProfileType>('regular');
+
+  const { register, handleSubmit, setValue, errors } = useForm<SignUpData>({
     mode: 'onSubmit',
     defaultValues: {
       fullName: '',
       email: '',
       password: '',
+      type: profileType,
     },
   });
 
@@ -86,10 +82,17 @@ export function SignUpForm({ onSubmit, style }: SignInFormProps) {
         onChange={(value) => setValue('password', value)}
       />
 
+      <Checkbox
+        onPress={(newChoice) => setProfileType(newChoice ? 'venue' : 'regular')}
+        label="Create a venue profile"
+      />
+
       <Button
         mode="contained"
         style={styles.button}
-        onPress={handleSubmit(onSubmit)}>
+        onPress={handleSubmit((data) =>
+          onSubmit({ ...data, type: profileType }),
+        )}>
         Sign Up
       </Button>
     </View>

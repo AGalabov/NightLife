@@ -9,13 +9,15 @@ import { SignInScreen } from '../../SignIn';
 
 const Guest = createMaterialBottomTabNavigator();
 
+export const TAB_NAVIGATOR_HEIGHT = 55;
+
 export function GuestTabNavigation() {
   return (
     <Guest.Navigator
       initialRouteName="Home"
       inactiveColor="white"
       activeColor={activeBlue}
-      barStyle={{ backgroundColor: black }}
+      barStyle={{ backgroundColor: black, height: TAB_NAVIGATOR_HEIGHT }}
       shifting
       sceneAnimationEnabled={false}>
       <Guest.Screen
@@ -79,38 +81,38 @@ export function UserTabNavigation() {
   );
 }
 
-const Admin = createMaterialBottomTabNavigator();
+const Venue = createMaterialBottomTabNavigator();
 
-export const AdminTabNavigation = () => {
+export const VenueTabNavigation = () => {
   return (
-    <Admin.Navigator
+    <Venue.Navigator
       initialRouteName="Profile"
       shifting
       inactiveColor="white"
       activeColor={activeBlue}
       barStyle={{ backgroundColor: black }}
       sceneAnimationEnabled={false}>
-      <Admin.Screen
+      <Venue.Screen
         name="Search"
         component={SearchScreen}
         options={{
           tabBarIcon: 'magnify',
         }}
       />
-      <Admin.Screen
+      <Venue.Screen
         name="AddEvent"
         component={AddEventScreen}
         options={{
           tabBarIcon: 'plus-box',
         }}
       />
-      <Admin.Screen
+      <Venue.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: 'account',
         }}
       />
-    </Admin.Navigator>
+    </Venue.Navigator>
   );
 };

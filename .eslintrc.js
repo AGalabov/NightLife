@@ -43,6 +43,8 @@ module.exports = {
       }
     ],
 
+    'class-methods-use-this': "off",
+
     // TS Specific usage
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",

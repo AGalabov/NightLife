@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Paragraph, Subheading, Title } from 'react-native-paper';
 import { useCustomNavigation } from '../hooks/use-custom-navigation';
-import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 import { SignInForm } from '../components/SignIn/Form';
 import { client } from '../services';
+import { useAuthentication } from '../hooks/use-authentication';
 
 const styles = StyleSheet.create({
   wrapper: { marginTop: 60 },
@@ -23,26 +23,22 @@ const styles = StyleSheet.create({
 });
 
 export function SignInScreen() {
-  const { login } = useAuthentication();
   const { navigate } = useCustomNavigation();
+  const { setUserId } = useAuthentication();
 
   const [error, setError] = useState<string>();
 
   const onLogin = async (email: string, password: string) => {
     try {
       const user = await client.login(email, password);
-      login(user);
-      navigate('Profile');
+      setUserId(user.userId);
     } catch (err) {
       setError('Oops something went wrong');
     }
   };
 
   return (
-    <PageWrapper
-      header="back-navigation"
-      style={styles.wrapper}
-      scrollable={false}>
+    <PageWrapper header="back-navigation" style={styles.wrapper} scrollable>
       <Title style={styles.title}>Вход</Title>
       <Subheading style={styles.subheading}>
         Влез в профилът си, за да видиш най-добрите предложения, за твоите

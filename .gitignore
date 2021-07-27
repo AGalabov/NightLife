@@ -48,6 +48,7 @@ android/*.hprof
 /android/build
 /android/captures
 /android/.externalNativeBuild
+/android/app/google-services.json
 
 # Visual Studio Code
 #

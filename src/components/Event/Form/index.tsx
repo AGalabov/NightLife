@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
-import { MusicCategory } from '../../../models';
+import { AddEventFormValues } from '../../../services';
 import { DatePicker } from '../../Form/DatePicker';
 import { NumberInput } from '../../Form/NumberInput';
 import { TextInput } from '../../Form/TextInput';
@@ -17,18 +17,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-type AddEventFormValues = {
-  title: string;
-  date: string;
-  type: MusicCategory[];
-  price: number;
-  description: string;
-  coverPhoto: string;
-  // TODO: This is probably how it should be
-  artistId?: string;
-};
-
 interface EventFormProps {
   onSubmit: (data: AddEventFormValues) => Promise<void>;
   style?: ViewStyle;
@@ -45,28 +33,25 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
     defaultValues: {
       title: '',
       date: '',
-      type: [],
+      musicCategories: [],
       price: 0,
       description: '',
-      coverPhoto: '',
-      // TODO: This is probably how it should be
-      artistId: undefined,
     },
   });
 
   useEffect(() => {
     register('title', {
-      required: 'Заглавието е задължително',
+      required: 'Title is required',
     });
     register('date', {
-      required: 'Датата е задължителна',
+      required: 'Date is required',
     });
-    register('type');
+    register('musicCategories');
     register('price');
     register('artistId');
     register('coverPhoto');
     register('description', {
-      required: 'Описанието е задължително',
+      required: 'Description is required',
     });
   }, [register]);
 
@@ -76,37 +61,37 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
         onDateChange={(date) => setValue('date', date.toISOString())}
       />
       <TextInput
-        label="Заглавие"
-        placeholder="Кратко заглавие"
+        label="Title"
+        placeholder="Enter title"
         boxStyle={styles.input}
         error={errors.title?.message}
         onChange={(value) => setValue('title', value)}
       />
 
       <TextInput
-        label="Снимка"
-        placeholder="Добавете линк към снимка"
+        label="Photo"
+        placeholder="Add photo url"
         boxStyle={styles.input}
         error={errors.title?.message}
         onChange={(value) => setValue('coverPhoto', value)}
       />
       <TextInput
-        label="Тип на събитието"
-        placeholder="Изберете тип"
+        label="Event type"
+        placeholder="Choose a type"
         boxStyle={styles.input}
-        error={errors.type?.message}
-        onChange={(value) => setValue('type', [value])}
+        error={errors.musicCategories?.message}
+        onChange={(value) => setValue('musicCategories', [value])}
       />
 
       <NumberInput
-        label="Цена"
+        label="Price"
         style={styles.input}
         onValueChange={(price) => setValue('price', price)}
       />
 
       <TextInput
-        label="Описание"
-        placeholder="Добавете описание на вашето събитие"
+        label="Description"
+        placeholder="Add a description for your event"
         multiline
         numberOfLines={6}
         boxStyle={styles.input}
@@ -118,7 +103,7 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
         mode="contained"
         style={styles.button}
         onPress={handleSubmit(onSubmit)}>
-        Добави
+        Add Event
       </Button>
     </View>
   );

@@ -1,90 +1,136 @@
-/* eslint-disable class-methods-use-this */
-import { shuffle, uniqueId } from 'lodash';
-import { Venue, Event, Profile, MusicCategory, Artist } from '../models';
-import data from './data.json';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {
+  Venue,
+  Event,
+  Profile,
+  MusicCategory,
+  Artist,
+  ProfileType,
+} from '../models';
 
-function getRandomPrice() {
-  return Math.floor(Math.random() * 20);
+export interface SignUpData {
+  fullName: string;
+  email: string;
+  password: string;
+  type: ProfileType;
 }
 
-function generateEventsFor(category: MusicCategory, count: number): Event[] {
-  return Array.from(Array(count).keys()).map(() => {
-    const id = uniqueId();
-    const eventTemplate = data.events[0] as Event;
-    return {
-      ...eventTemplate,
-      eventId: id,
-      musicCategories: [category],
-      title: `${category} event - ${id}`,
-      price: getRandomPrice(),
-    };
-  });
+export interface AddEventFormValues {
+  title: string;
+  date: string;
+  musicCategories: MusicCategory[];
+  price: number;
+  description: string;
+  coverPhoto: string;
+  // TODO: This is probably how it should be
+  artistId?: string;
 }
 
-function generateEvents() {
-  return shuffle([
-    ...generateEventsFor('pop-folk', 5),
-    ...generateEventsFor('rock', 3),
-    ...generateEventsFor('pop', 4),
-    ...generateEventsFor('county', 1),
-    ...generateEventsFor('other', 6),
-    ...generateEventsFor('reggaeton', 2),
-    ...generateEventsFor('rap', 2),
-  ]);
+export interface AddEventData extends AddEventFormValues {
+  venueId: string;
+  venueLogoUri: string;
 }
 
 class Client {
-  private events: Event[];
-
-  constructor() {
-    // Generates some event mock data that we want
-    // to keep as persistent during the browsing
-    this.events = generateEvents();
-  }
-
-  getVenues(): Promise<Venue[]> {
-    return Promise.resolve(data.venues);
+  async getEvents(): Promise<Event[]> {
+    const allEvents = await firestore().collection<Event>('events').get();
+    return allEvents.docs.map((doc) => ({
+      ...doc.data(),
+      eventId: doc.id,
+    }));
   }
 
   // TODO: Error handling
-  getVenueById(id: string): Promise<Venue | undefined> {
-    return Promise.resolve(data.venues.find((venue) => venue.venueId === id));
+  async getEventById(id: string): Promise<Event | undefined> {
+    const event = await firestore().collection<Event>('events').doc(id).get();
+    return event.data();
   }
 
-  getEvents(): Promise<Event[]> {
-    return Promise.resolve(this.events);
+  async addEvent(addEventData: AddEventData) {
+    const requestData = {
+      ...addEventData,
+      // TODO: temp
+      artistId: '2',
+      comments: [],
+      photos: [],
+    };
+
+    const res = await firestore().collection('events').add(requestData);
+    return { eventId: res.id };
   }
 
-  // TODO: Error handling
-  getEventById(id: string): Promise<Event | undefined> {
-    return Promise.resolve(this.events.find((event) => event.eventId === id));
-  }
+  async getProfile(id: string): Promise<Profile> {
+    const profileDocument = await firestore()
+      .collection<Profile>('users')
+      .doc(id)
+      .get();
+    const profile = profileDocument.data();
 
-  getProfile(id: string): Promise<Profile> {
-    const result = data.profiles.find((profile) => profile.userId === id);
-
-    if (!result) {
+    if (!profileDocument.exists || !profile) {
       throw new Error('Oops something went wrong');
     }
 
-    return Promise.resolve(result as Profile);
+    return profile;
   }
 
-  getArtistById(id: string): Promise<Artist | undefined> {
-    return Promise.resolve(
-      data.artists.find((artist) => artist.artistId === id),
-    );
-  }
+  async getVenueById(id: string): Promise<Venue> {
+    const profileDocument = await firestore()
+      .collection<Venue>('venues')
+      .doc(id)
+      .get();
+    const venue = profileDocument.data();
 
-  login(email: string, password: string): Promise<Profile> {
-    const userData = data.users.find(
-      (user) => user.email === email && user.password === password,
-    );
-    if (!userData) {
-      throw new Error('Invalid user data');
+    if (!profileDocument.exists || !venue) {
+      throw new Error('Oops something went wrong');
     }
 
-    return this.getProfile(userData.userId);
+    return venue;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getArtistById(_id: string): Promise<Artist | undefined> {
+    return Promise.resolve(undefined);
+  }
+
+  async login(email: string, password: string): Promise<{ userId: string }> {
+    const result = await auth().signInWithEmailAndPassword(email, password);
+    const userId = result.user.uid;
+
+    return { userId };
+  }
+
+  async signUp({
+    email,
+    password,
+    fullName,
+    type,
+  }: SignUpData): Promise<{ userId: string }> {
+    const result = await auth().createUserWithEmailAndPassword(email, password);
+    const userId = result.user.uid;
+
+    const [firstName, lastName] = fullName.trim().split(' ') as [
+      string,
+      string,
+    ];
+
+    const profile: Profile = {
+      email,
+      firstName,
+      lastName,
+      type,
+      userId,
+      favoriteArtists: [],
+      favoriteVenues: [],
+      visitedEvents: [],
+    };
+
+    await firestore().collection('users').doc(userId).set(profile);
+    return { userId };
+  }
+
+  async logout(): Promise<void> {
+    await auth().signOut();
   }
 }
 

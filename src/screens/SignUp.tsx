@@ -5,7 +5,7 @@ import { useCustomNavigation } from '../hooks/use-custom-navigation';
 import { useAuthentication } from '../hooks/use-authentication';
 import { PageWrapper } from './PageWrapper';
 import { SignUpForm } from '../components/SignUp/Form';
-import { Profile } from '../models';
+import { client, SignUpData } from '../services';
 
 const styles = StyleSheet.create({
   title: {
@@ -22,30 +22,15 @@ const styles = StyleSheet.create({
 });
 
 export function SignUpScreen() {
-  const { login } = useAuthentication();
+  const { setUserId } = useAuthentication();
   const { navigate } = useCustomNavigation();
 
   const [error, setError] = useState<string>();
 
-  const onSignUp = async (
-    email: string,
-    password: string,
-    fullName: string,
-  ) => {
+  const onSignUp = async (data: SignUpData) => {
     try {
-      const profile: Profile = {
-        email,
-        firstName: fullName.trim().split(' ')[0]!,
-        lastName: fullName.trim().split(' ')[1]!,
-        favoriteArtists: [],
-        favoriteVenues: [],
-        visitedEvents: [],
-        type: 'regular',
-        userId: '1234',
-      };
-
-      // TODO: Switch to actual request for sign up
-      login(profile);
+      const user = await client.signUp(data);
+      setUserId(user.userId);
       navigate('Profile');
     } catch (err) {
       setError('Oops something went wrong');
@@ -53,7 +38,7 @@ export function SignUpScreen() {
   };
 
   return (
-    <PageWrapper scrollable={false} header="back-navigation">
+    <PageWrapper scrollable header="back-navigation">
       <Title style={styles.title}>Регистрация</Title>
 
       <Subheading style={styles.subheading}>
@@ -62,10 +47,7 @@ export function SignUpScreen() {
       </Subheading>
 
       {error && <Paragraph style={styles.error}>{error}</Paragraph>}
-      <SignUpForm
-        style={styles.form}
-        onSubmit={(data) => onSignUp(data.email, data.password, data.fullName)}
-      />
+      <SignUpForm style={styles.form} onSubmit={onSignUp} />
       <Button
         mode="text"
         uppercase={false}
