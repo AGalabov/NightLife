@@ -1,16 +1,14 @@
 # NightLife application prototype
 
-This is the prototype of the NightLife mobile application. The idea behind the project is to create a mobile application that gathers information about all musical venues, artists and events to present to the wider audience.
+This is an initial version of the NightLife mobile application. The idea behind the project is to create a mobile application that gathers information about all musical venues, artists and events to present to the wider audience.
 
-## Functionalities
-
-### Users should be able to:
+Users should be able to:
 
 - Create a profile
 - Login in their profile
 - Search, filter and sort events
 
-### Venue mangers should be able to:
+Venue mangers should be able to:
 
 - Setup a profile
 - Upload information about events
@@ -19,14 +17,18 @@ This is the prototype of the NightLife mobile application. The idea behind the p
 
 ## Search
 
-<img style="width: 49%; margin-right: 2%" src="./screenshots/refine-results.png">
-<img style="width: 49%; float: right" src="./screenshots/search-screen.png">
+| **Refine results**                                  | **Search results**                                 |
+| --------------------------------------------------- | -------------------------------------------------- |
+| ![Refine results](./screenshots/refine-results.png) | ![Search results](./screenshots/search-screen.png) |
 
 ## Events
 
-<img style="width: 49%; margin-right: 2%" src="./screenshots/event-details.png">
-<img style="width: 49%; float: right" src="./screenshots/add-event.png">
+| **Event details**                                      | **Add event form**                             |
+| ------------------------------------------------------ | ---------------------------------------------- |
+| ![Event details page](./screenshots/event-details.png) | ![Add event form](./screenshots/add-event.png) |
 
 ## Profile
 
-<img style="width: 50%;" src="./screenshots/profile.png">
+| **Registered user**                        | **Login screen**                                |
+| ------------------------------------------ | ----------------------------------------------- |
+| ![Profile page](./screenshots/profile.png) | ![Login screen](./screenshots/login-screen.png) |
