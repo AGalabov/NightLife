@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {
@@ -9,37 +8,6 @@ import {
   Artist,
   ProfileType,
 } from '../models';
-// import data from './data.json';
-
-// function getRandomPrice() {
-//   return Math.floor(Math.random() * 20);
-// }
-
-// function generateEventsFor(category: MusicCategory, count: number): Event[] {
-//   return Array.from(Array(count).keys()).map(() => {
-//     const id = uniqueId();
-//     const eventTemplate = data.events[0] as Event;
-//     return {
-//       ...eventTemplate,
-//       eventId: id,
-//       musicCategories: [category],
-//       title: `${category} event - ${id}`,
-//       price: getRandomPrice(),
-//     };
-//   });
-// }
-
-// function generateEvents() {
-//   return shuffle([
-//     ...generateEventsFor('pop-folk', 5),
-//     ...generateEventsFor('rock', 3),
-//     ...generateEventsFor('pop', 4),
-//     ...generateEventsFor('county', 1),
-//     ...generateEventsFor('other', 6),
-//     ...generateEventsFor('reggaeton', 2),
-//     ...generateEventsFor('rap', 2),
-//   ]);
-// }
 
 export interface SignUpData {
   fullName: string;
@@ -164,20 +132,6 @@ class Client {
   async logout(): Promise<void> {
     await auth().signOut();
   }
-
-  // async test(): Promise<void> {
-  //   const { events } = data;
-  //   Promise.all(
-  //     events.map((event) => {
-  //       const requestData = {
-  //         ...event,
-  //         artistId: '2',
-  //       };
-
-  //       return firestore().collection('events').add(requestData);
-  //     }),
-  //   );
-  // }
 }
 
 export const client = new Client();
