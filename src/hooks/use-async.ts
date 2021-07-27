@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAsyncAction } from './use-async-action';
 
 export function useAsync<T>(action: () => Promise<T>, dependencies: any[]) {
-  const { data, error, loading, perform } = useAsyncAction(
+  const { perform, ...asyncActionState } = useAsyncAction(
     action,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     [...dependencies, action],
@@ -17,9 +17,7 @@ export function useAsync<T>(action: () => Promise<T>, dependencies: any[]) {
   }, dependencies);
 
   return {
-    data,
-    error,
-    loading,
+    ...asyncActionState,
     load: perform,
   };
 }

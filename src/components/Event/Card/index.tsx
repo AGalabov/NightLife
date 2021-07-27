@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Button, Card } from 'react-native-paper';
+import { Avatar, Card } from 'react-native-paper';
 import { backgroundGray } from '../../../assets/colors';
 import { useCustomNavigation } from '../../../hooks/use-custom-navigation';
 import { Event } from '../../../models';
@@ -44,10 +44,6 @@ export function EventCard({ event }: EventCardProps) {
         subtitle={event.date}
         left={(props) => <LeftContent uri={event.venueLogoUri} {...props} />}
       />
-      <Card.Actions>
-        <Button>Cancel</Button>
-        <Button>Ok</Button>
-      </Card.Actions>
     </Card>
   );
 }
