@@ -38,25 +38,25 @@ export function EventDetails({ event, venue }: EventDetailsProps) {
         <Divider style={styles.divider} />
         <Paragraph>{event.description}</Paragraph>
         <Divider style={styles.divider} />
-        <Headline>Цена:</Headline>
+        <Headline>Price:</Headline>
         <Paragraph>{event.price}</Paragraph>
         <Divider style={styles.divider} />
-        <Headline>За заведението:</Headline>
+        <Headline>About the venue:</Headline>
         <VenueCard venue={venue} />
 
         <Divider style={styles.divider} />
-        <Headline>Коментари:</Headline>
+        <Headline>Comments:</Headline>
         <CommentSection comments={event.comments} />
 
         <Divider style={styles.divider} />
 
         {/* TODO: Optional - not by design */}
-        {/* <Headline>За изпълнителят:</Headline> */}
+        {/* <Headline>About the artist:</Headline> */}
         {/* TODO: Artist Card */}
         {/* <Paragraph>{event.artistId}</Paragraph> */}
 
         <Divider style={styles.divider} />
-        <Headline>Вижте още:</Headline>
+        <Headline>You might also like:</Headline>
         {/* TODO: EventList of similar events */}
       </View>
     </>

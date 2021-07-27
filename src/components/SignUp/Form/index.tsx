@@ -84,7 +84,7 @@ export function SignUpForm({ onSubmit, style }: SignUpFormProps) {
 
       <Checkbox
         onPress={(newChoice) => setProfileType(newChoice ? 'venue' : 'regular')}
-        label="Създай профил за за заведение"
+        label="Create a venue profile"
       />
 
       <Button

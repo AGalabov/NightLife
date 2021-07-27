@@ -45,7 +45,7 @@ export function VenueCard({ venue }: VenueCardProps) {
     <Card
       elevation={5}
       // TODO: Venue specific page
-      // onPress={() => navigate('EventDetails', { eventId: event.eventId })}
+      // onPress={() => navigate('VenueDetails', { venue })}
     >
       <Card.Cover
         source={{

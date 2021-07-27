@@ -41,17 +41,17 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
 
   useEffect(() => {
     register('title', {
-      required: 'Заглавието е задължително',
+      required: 'Title is required',
     });
     register('date', {
-      required: 'Датата е задължителна',
+      required: 'Date is required',
     });
     register('musicCategories');
     register('price');
     register('artistId');
     register('coverPhoto');
     register('description', {
-      required: 'Описанието е задължително',
+      required: 'Description is required',
     });
   }, [register]);
 
@@ -61,37 +61,37 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
         onDateChange={(date) => setValue('date', date.toISOString())}
       />
       <TextInput
-        label="Заглавие"
-        placeholder="Кратко заглавие"
+        label="Title"
+        placeholder="Enter title"
         boxStyle={styles.input}
         error={errors.title?.message}
         onChange={(value) => setValue('title', value)}
       />
 
       <TextInput
-        label="Снимка"
-        placeholder="Добавете линк към снимка"
+        label="Photo"
+        placeholder="Add photo url"
         boxStyle={styles.input}
         error={errors.title?.message}
         onChange={(value) => setValue('coverPhoto', value)}
       />
       <TextInput
-        label="Тип на събитието"
-        placeholder="Изберете тип"
+        label="Event type"
+        placeholder="Choose a type"
         boxStyle={styles.input}
         error={errors.musicCategories?.message}
         onChange={(value) => setValue('musicCategories', [value])}
       />
 
       <NumberInput
-        label="Цена"
+        label="Price"
         style={styles.input}
         onValueChange={(price) => setValue('price', price)}
       />
 
       <TextInput
-        label="Описание"
-        placeholder="Добавете описание на вашето събитие"
+        label="Description"
+        placeholder="Add a description for your event"
         multiline
         numberOfLines={6}
         boxStyle={styles.input}
@@ -103,7 +103,7 @@ export function EventForm({ onSubmit, style }: EventFormProps) {
         mode="contained"
         style={styles.button}
         onPress={handleSubmit(onSubmit)}>
-        Добави
+        Add Event
       </Button>
     </View>
   );
