@@ -1,14 +1,16 @@
 # NightLife application prototype
 
-This is an initial version of the NightLife mobile application. The idea behind the project is to create a mobile application that gathers information about all musical venues, artists and events to present to the wider audience.
+This is the prototype of the NightLife mobile application. The idea behind the project is to create a mobile application that gathers information about all musical venues, artists and events to present to the wider audience.
 
-Users should be able to:
+## Functionalities
+
+### Users should be able to:
 
 - Create a profile
 - Login in their profile
 - Search, filter and sort events
 
-Venue mangers should be able to:
+### Venue mangers should be able to:
 
 - Setup a profile
 - Upload information about events
@@ -17,17 +19,14 @@ Venue mangers should be able to:
 
 ## Search
 
-- [Refine results](./screenshots/refine-results.png)
-- [Search results](./screenshots/search-screen.png)
+<img style="width: 49%; margin-right: 2%" src="./screenshots/refine-results.png">
+<img style="width: 49%; float: right" src="./screenshots/search-screen.png">
+
+## Events
+
+<img style="width: 49%; margin-right: 2%" src="./screenshots/event-details.png">
+<img style="width: 49%; float: right" src="./screenshots/add-event.png">
 
 ## Profile
 
-- [Profile page](./screenshots/profile.png)
-
-## Event details
-
-- [Event details page](./screenshots/event-details.png)
-
-## Add event form
-
-- [Add event form](./screenshots/add-event.png)
+<img style="width: 50%;" src="./screenshots/profile.png">
