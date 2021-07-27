@@ -21,9 +21,9 @@ export const DatePicker = ({ onDateChange }: DatePickerProps) => {
   return (
     <View>
       <TextInput
-        label="Дата"
+        label="Date"
         value={date.format('DD/MM/YYYY')}
-        placeholder="Избери дата"
+        placeholder="Choose date"
         showSoftInputOnFocus={false}
         onTouchStart={(e) => {
           e.preventDefault();
@@ -33,9 +33,9 @@ export const DatePicker = ({ onDateChange }: DatePickerProps) => {
       />
 
       <TextInput
-        label="Час"
+        label="Time"
         value={date.format('hh:mmA')}
-        placeholder="Избери час"
+        placeholder="Choose time"
         showSoftInputOnFocus={false}
         onTouchStart={(e) => {
           e.preventDefault();

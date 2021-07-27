@@ -39,11 +39,10 @@ export function SignUpScreen() {
 
   return (
     <PageWrapper scrollable header="back-navigation">
-      <Title style={styles.title}>Регистрация</Title>
+      <Title style={styles.title}>Sign Up</Title>
 
       <Subheading style={styles.subheading}>
-        Създай собствен акаунт, за да достъпиш цялата фунцкионалност на
-        приложението
+        Create your own profile to access all of the available functionalities
       </Subheading>
 
       {error && <Paragraph style={styles.error}>{error}</Paragraph>}
@@ -54,7 +53,7 @@ export function SignUpScreen() {
         style={styles.loginButton}
         onPress={() => navigate('SignIn')}>
         <Paragraph style={styles.loginText}>
-          Влез в съществуващ профил
+          Already have a profile? Login instead.
         </Paragraph>
       </Button>
     </PageWrapper>
